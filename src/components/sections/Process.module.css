@@ -1,0 +1,146 @@
+.process {
+  position: relative;
+  background: var(--surface);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.header {
+  position: sticky;
+  top: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  max-width: 500px;
+}
+
+.headerExtra {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 400px;
+}
+
+.headerDesc {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.principles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.principles li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.principles li svg {
+  color: var(--accent);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* Grid */
+.grid {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+/* Step */
+.step {
+  padding: 60px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  transition: opacity var(--transition-base);
+}
+
+.step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.step:first-child {
+  padding-top: 0;
+}
+
+/* Giant Number */
+.bigNumber {
+  font-size: clamp(80px, 8vw, 120px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--border);
+  transition: color 0.4s ease;
+  user-select: none;
+}
+
+.step:hover .bigNumber {
+  color: var(--text-primary);
+}
+
+/* Step content */
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepTitle {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 992px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .header {
+    position: relative;
+    top: 0;
+    margin-bottom: 0;
+  }
+  .grid {
+    border-left: none;
+    padding-left: 0;
+  }
+  .step {
+    padding: 40px 0;
+  }
+}

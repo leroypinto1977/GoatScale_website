@@ -1,0 +1,329 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 100px;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg);
+  background-image: 
+    linear-gradient(var(--surface-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--surface-2) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+}
+
+/* Fade out the grid at the edges for a clean look */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%);
+  pointer-events: none;
+}
+
+/* Content */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 80px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Label */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.labelDot {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* Headline */
+.headline h1 {
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.accentLine {
+  color: var(--accent);
+}
+
+/* Sub */
+.sub {
+  max-width: 480px;
+}
+
+/* CTAs */
+.ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Right — Mockup UI */
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.mockupWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  transform-style: preserve-3d;
+}
+
+/* Main Code Window */
+.codeWindow {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.windowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.macDots {
+  display: flex;
+  gap: 6px;
+}
+
+.macDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+
+.macDots span:nth-child(1) { background: var(--text-primary); }
+.macDots span:nth-child(2) { background: var(--border); }
+.macDots span:nth-child(3) { background: var(--border); }
+
+.windowTitle {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-right: 20px;
+}
+
+.windowBody {
+  display: flex;
+  padding: 20px;
+  background: #000000; /* Force dark mode for code block to pop against white theme */
+  color: #FAFAFA;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.lineNumbers {
+  display: flex;
+  flex-direction: column;
+  padding-right: 16px;
+  color: #52525B;
+  text-align: right;
+  user-select: none;
+}
+
+.codeBlock {
+  margin: 0;
+  overflow-x: auto;
+}
+
+/* Code Syntax Colors */
+.keyword { color: #A78BFA; } /* Purple */
+.class { color: #34D399; } /* Green */
+.type { color: #60A5FA; } /* Blue */
+.function { color: #FBBF24; } /* Yellow */
+
+/* Floating Widget */
+.widget {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  width: 220px;
+  transform: translateZ(40px); /* Pushes it forward in 3D space */
+}
+
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  box-shadow: 0 0 0 2px var(--surface-2);
+}
+
+.widgetBody {
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metricLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.metricValue {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.3; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+
+  .left {
+    align-items: center;
+  }
+
+  .sub {
+    max-width: 560px;
+    text-align: center;
+  }
+
+  .stats {
+    justify-content: center;
+  }
+
+  .right {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats {
+    gap: 24px;
+  }
+
+  .ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

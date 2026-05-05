@@ -1,0 +1,150 @@
+.services {
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 72px;
+}
+
+.title {
+  max-width: 560px;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* List */
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  position: relative;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.rowInner {
+  display: grid;
+  grid-template-columns: 60px 280px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 0;
+}
+
+/* Active row */
+.row.active .number {
+  color: var(--accent);
+}
+
+.row.active .serviceName {
+  color: var(--text-primary);
+}
+
+.row.active .arrow {
+  color: var(--accent);
+}
+
+.row::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.row.active::before {
+  transform: scaleY(1);
+}
+
+.number {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transition-base);
+}
+
+.serviceName {
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
+  margin: 0;
+}
+
+.serviceDesc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 380px;
+}
+
+.arrow {
+  color: var(--text-muted);
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: color var(--transition-base);
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  gap: 8px;
+  padding-bottom: 24px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .rowInner {
+    grid-template-columns: 48px 1fr auto;
+  }
+
+  .serviceDesc {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .rowInner {
+    grid-template-columns: 40px 1fr auto;
+    gap: 16px;
+    padding: 24px 0;
+  }
+
+  .serviceName {
+    font-size: 20px;
+  }
+}
