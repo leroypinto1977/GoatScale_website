@@ -14,28 +14,38 @@ const metrics = [
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const animated = useRef(false);
 
   useEffect(() => {
+    let animationFrame: number;
+    
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !animated.current) {
-          animated.current = true;
+        if (entries[0].isIntersecting) {
           const duration = 1800;
           const step = (timestamp: number, startTime: number) => {
             const progress = Math.min((timestamp - startTime) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
             setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame((t) => step(t, startTime));
+            if (progress < 1) {
+              animationFrame = requestAnimationFrame((t) => step(t, startTime));
+            }
           };
-          requestAnimationFrame((t) => step(t, t));
+          animationFrame = requestAnimationFrame((t) => step(t, t));
+        } else {
+          // Reset count when scrolled out of view so it can count up again
+          setCount(0);
+          if (animationFrame) cancelAnimationFrame(animationFrame);
         }
       },
       { threshold: 0.5 }
     );
 
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    
+    return () => {
+      observer.disconnect();
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, [target]);
 
   return <span ref={ref}>{count}{suffix}</span>;
@@ -114,8 +124,8 @@ export default function Manifesto() {
                 className={styles.metric}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                viewport={{ once: false, margin: "0px 0px -100px 0px" }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <div className={styles.metricValue}>
                   <CountUp target={metric.value} suffix={metric.suffix} />

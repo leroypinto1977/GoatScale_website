@@ -5,9 +5,8 @@
   align-items: center;
   overflow: hidden;
   padding-top: 100px;
-  border-bottom: 1px solid var(--border);
   background-color: var(--bg);
-  background-image: 
+  background-image:
     linear-gradient(var(--surface-2) 1px, transparent 1px),
     linear-gradient(90deg, var(--surface-2) 1px, transparent 1px);
   background-size: 40px 40px;
@@ -66,10 +65,10 @@
 
 /* Headline */
 .headline h1 {
-  font-size: clamp(36px, 4.5vw, 64px);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.4;
   color: var(--text-primary);
 }
 
@@ -95,7 +94,6 @@
   display: flex;
   gap: 40px;
   padding-top: 16px;
-  border-top: 1px solid var(--border);
 }
 
 .stat {
@@ -147,7 +145,6 @@
   justify-content: space-between;
   padding: 12px 16px;
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
 }
 
 .macDots {
@@ -162,9 +159,17 @@
   border: 1px solid var(--border);
 }
 
-.macDots span:nth-child(1) { background: var(--text-primary); }
-.macDots span:nth-child(2) { background: var(--border); }
-.macDots span:nth-child(3) { background: var(--border); }
+.macDots span:nth-child(1) {
+  background: var(--text-primary);
+}
+
+.macDots span:nth-child(2) {
+  background: var(--border);
+}
+
+.macDots span:nth-child(3) {
+  background: var(--border);
+}
 
 .windowTitle {
   font-family: monospace;
@@ -177,7 +182,8 @@
 .windowBody {
   display: flex;
   padding: 20px;
-  background: #000000; /* Force dark mode for code block to pop against white theme */
+  background: #000000;
+  /* Force dark mode for code block to pop against white theme */
   color: #FAFAFA;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 12px;
@@ -199,10 +205,26 @@
 }
 
 /* Code Syntax Colors */
-.keyword { color: #A78BFA; } /* Purple */
-.class { color: #34D399; } /* Green */
-.type { color: #60A5FA; } /* Blue */
-.function { color: #FBBF24; } /* Yellow */
+.keyword {
+  color: #A78BFA;
+}
+
+/* Purple */
+.class {
+  color: #34D399;
+}
+
+/* Green */
+.type {
+  color: #60A5FA;
+}
+
+/* Blue */
+.function {
+  color: #FBBF24;
+}
+
+/* Yellow */
 
 /* Floating Widget */
 .widget {
@@ -215,7 +237,8 @@
   padding: 16px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
   width: 220px;
-  transform: translateZ(40px); /* Pushes it forward in 3D space */
+  transform: translateZ(40px);
+  /* Pushes it forward in 3D space */
 }
 
 .widgetHeader {
@@ -229,7 +252,6 @@
   color: var(--text-secondary);
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
 }
 
 .statusDot {
@@ -287,8 +309,17 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(6px); opacity: 0.3; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(6px);
+    opacity: 0.3;
+  }
 }
 
 /* Responsive */

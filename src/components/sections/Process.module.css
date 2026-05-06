@@ -92,7 +92,7 @@
 
 /* Giant Number */
 .bigNumber {
-  font-size: clamp(80px, 8vw, 120px);
+  font-size: clamp(48px, 5vw, 72px);
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 1;

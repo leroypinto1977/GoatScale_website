@@ -1,6 +1,5 @@
 .contact {
   position: relative;
-  border-top: 1px solid var(--border);
 }
 
 .inner {
@@ -49,6 +48,21 @@
   color: var(--accent);
   border-color: var(--accent);
   gap: 14px;
+}
+
+.directBooking {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.directBookingLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .socials {
@@ -125,9 +139,8 @@
 }
 
 .submit {
-  width: 100%;
-  justify-content: center;
-  padding: 14px;
+  width: fit-content;
+  padding: 12px 24px;
   font-size: 14px;
   margin-top: 8px;
 }

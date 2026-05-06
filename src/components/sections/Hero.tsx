@@ -21,18 +21,18 @@ export default function Hero() {
       { opacity: 0, y: 60, clipPath: 'inset(100% 0 0 0)' },
       { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1.0, stagger: 0.1, ease: 'power4.out' }
     )
-    .fromTo(
-      subRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.7 },
-      '-=0.5'
-    )
-    .fromTo(
-      ctaRef.current,
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.7 },
-      '-=0.5'
-    );
+      .fromTo(
+        subRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.5'
+      )
+      .fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.5'
+      );
 
   }, []);
 
@@ -48,17 +48,14 @@ export default function Hero() {
 
           {/* Headline */}
           <div className={styles.headline}>
-            <h1 ref={headlineRef}>
-              <span className="word" style={{ display: 'inline-block' }}>We</span>{' '}
-              <span className="word" style={{ display: 'inline-block' }}>build</span>{' '}
-              <span className="word" style={{ display: 'inline-block' }}>the</span>
+            <h1 ref={headlineRef} className="display">
+              <span className="word" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+                We build the <span className={styles.accentLine}>systems</span>
+              </span>
               <br />
-              <span className={`${styles.accentLine} word`} style={{ display: 'inline-block' }}>systems</span>{' '}
-              <span className="word" style={{ display: 'inline-block' }}>that</span>
-              <br />
-              <span className="word" style={{ display: 'inline-block' }}>let</span>{' '}
-              <span className="word" style={{ display: 'inline-block' }}>you</span>{' '}
-              <span className="word" style={{ display: 'inline-block' }}>scale.</span>
+              <span className="word" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+                that let you scale
+              </span>
             </h1>
           </div>
 
@@ -74,14 +71,14 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className={styles.ctas} ref={ctaRef} style={{ opacity: 0 }}>
-            <MagneticButton className={`btn btn-primary`}>
+            <MagneticButton className={`btn btn-primary`} href="/work">
               See Our Work
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="square" />
               </svg>
             </MagneticButton>
-            <MagneticButton className={`btn btn-outline`}>
-              Start a Project
+            <MagneticButton className={`btn btn-outline`} href="/book-a-call">
+              Book a Call
             </MagneticButton>
           </div>
 
@@ -141,7 +138,7 @@ export default function Hero() {
             </div>
 
             {/* Overlapping Performance Widget */}
-            <motion.div 
+            <motion.div
               className={styles.widget}
               initial={{ opacity: 0, x: 20, y: 20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}

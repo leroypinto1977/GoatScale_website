@@ -2,19 +2,21 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#process', label: 'Process' },
-  { href: '#work', label: 'Work' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#services', label: 'Services', isAnchor: true },
+  { href: '/work', label: 'Projects', isAnchor: false },
+  { href: '/about', label: 'About', isAnchor: false },
+  { href: '/#contact', label: 'Contact', isAnchor: true },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,20 +55,32 @@ export default function Navbar() {
           <ul className={styles.links}>
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className={styles.link}>
-                  {link.label}
-                </a>
+                {link.isAnchor ? (
+                  <a
+                    href={pathname === '/' ? link.href.replace('/', '') : link.href}
+                    className={styles.link}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={`${styles.link} ${pathname === link.href ? styles.active : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
 
           {/* Desktop CTA */}
-          <a href="#contact" className={`btn btn-primary ${styles.cta}`}>
-            Let&apos;s Talk
+          <Link href="/start-a-project" className={`btn btn-primary ${styles.cta}`}>
+            Start a Project
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </Link>
 
           {/* Mobile Hamburger */}
           <button
@@ -85,15 +99,29 @@ export default function Navbar() {
           <ul>
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className={styles.mobileLink} onClick={handleNavClick}>
-                  {link.label}
-                </a>
+                {link.isAnchor ? (
+                  <a
+                    href={pathname === '/' ? link.href.replace('/', '') : link.href}
+                    className={styles.mobileLink}
+                    onClick={handleNavClick}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={styles.mobileLink}
+                    onClick={handleNavClick}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li>
-              <a href="#contact" className={`btn btn-primary ${styles.mobileCta}`} onClick={handleNavClick}>
-                Let&apos;s Talk →
-              </a>
+              <Link href="/start-a-project" className={`btn btn-primary ${styles.mobileCta}`} onClick={handleNavClick}>
+                Start a Project →
+              </Link>
             </li>
           </ul>
         </div>

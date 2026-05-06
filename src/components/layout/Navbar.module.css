@@ -11,7 +11,6 @@
 .nav.scrolled {
   padding: 14px 0;
   background: var(--bg);
-  border-bottom: 1px solid var(--border);
 }
 
 .inner {
@@ -76,6 +75,14 @@
 }
 
 .link:hover::after {
+  width: 100%;
+}
+
+.link.active {
+  color: var(--text-primary);
+}
+
+.link.active::after {
   width: 100%;
 }
 

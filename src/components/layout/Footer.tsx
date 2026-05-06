@@ -1,13 +1,6 @@
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
-const footerLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#process', label: 'Process' },
-  { href: '#work', label: 'Work' },
-  { href: '#contact', label: 'Contact' },
-];
-
 export default function Footer() {
   return (
     <footer className={styles.footer}>
@@ -26,14 +19,6 @@ export default function Footer() {
           <p className={styles.copy}>
             © {new Date().getFullYear()} Goat Scale. All rights reserved.
           </p>
-
-          <nav className={styles.links}>
-            {footerLinks.map((link) => (
-              <a key={link.href} href={link.href} className={styles.link}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
 
           <div className={styles.socials}>
             {/* LinkedIn */}
