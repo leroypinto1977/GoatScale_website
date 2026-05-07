@@ -33,6 +33,15 @@
 
 .accent {
   color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.accent::first-letter {
+  text-transform: uppercase;
 }
 
 /* Step Indicator */
@@ -65,7 +74,7 @@
 .stepDotActive {
   border-color: var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: var(--bg);
 }
 
 .stepTrack {
@@ -362,7 +371,7 @@
   height: 72px;
   border-radius: 50%;
   background: var(--accent);
-  color: #fff;
+  color: var(--bg);
   font-size: 32px;
   display: flex;
   align-items: center;

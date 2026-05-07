@@ -35,7 +35,7 @@ export default function TeamReveal() {
   return (
     <section className={styles.section}>
       <div className={`container ${styles.layout}`}>
-        
+
         {/* Left Side: Content */}
         <div className={styles.content}>
           <div className={styles.sectionLabel}>
@@ -44,14 +44,14 @@ export default function TeamReveal() {
 
           <div className={styles.memberList}>
             {TEAM.map((member, idx) => (
-              <div 
+              <div
                 key={member.id}
                 className={`${styles.memberBlock} ${activeIndex === idx ? styles.active : ''}`}
                 onMouseEnter={() => setActiveIndex(idx)}
                 onClick={() => setActiveIndex(idx)}
               >
                 <h3 className={styles.name}>{member.name}</h3>
-                
+
                 <div className={styles.details}>
                   <div className={styles.detailRow}>
                     <span className={styles.detailLabel}>The Role: {member.role}</span>

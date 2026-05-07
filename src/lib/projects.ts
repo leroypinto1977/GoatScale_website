@@ -21,10 +21,8 @@ export const projects: Project[] = [
     client: 'LogiTrack Ltd.',
     category: 'Web',
     year: '2024',
-    thumbnail:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-    heroImage:
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=90',
+    thumbnail: '/images/projects/flowdesk-thumb.png',
+    heroImage: '/images/projects/flowdesk-hero.png',
     summary:
       'A full-stack CRM system built for a logistics company, replacing 6 manual spreadsheet workflows with one unified platform.',
     challenge:
@@ -49,10 +47,8 @@ export const projects: Project[] = [
     client: 'Pulse Health Inc.',
     category: 'Mobile',
     year: '2024',
-    thumbnail:
-      'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80',
-    heroImage:
-      'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1600&q=90',
+    thumbnail: '/images/projects/pulse-thumb.png',
+    heroImage: '/images/projects/pulse-hero.png',
     summary:
       'Cross-platform fitness tracking app with real-time data sync and AI-powered coaching built for iOS and Android.',
     challenge:
@@ -77,10 +73,8 @@ export const projects: Project[] = [
     client: 'Meridian Creative',
     category: 'Web',
     year: '2023',
-    thumbnail:
-      'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80',
-    heroImage:
-      'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1600&q=90',
+    thumbnail: '/images/projects/meridian-thumb.png',
+    heroImage: '/images/projects/meridian-hero.png',
     summary:
       'Brand website for a premium creative studio. Zero-bloat, perfect Lighthouse score, fully animated editorial experience.',
     challenge:
@@ -105,10 +99,8 @@ export const projects: Project[] = [
     client: 'NorthCore Distribution',
     category: 'Web',
     year: '2023',
-    thumbnail:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
-    heroImage:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=90',
+    thumbnail: '/images/projects/warehouse-thumb.png',
+    heroImage: '/images/projects/warehouse-hero.png',
     summary:
       'End-to-end warehouse management system with live inventory tracking and automated reorder workflows.',
     challenge:

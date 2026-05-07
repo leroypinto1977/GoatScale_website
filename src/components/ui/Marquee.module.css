@@ -1,40 +1,54 @@
-.marqueeSection {
-  padding: 40px 0;
+.marqueeWrapper {
+  background: var(--accent) !important;
+  padding: 10px 0 !important;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: var(--text-primary);
+  position: relative;
+  width: 100%;
 }
 
-.parallax {
-  overflow: hidden;
-  margin: 0;
+.track {
+  display: flex;
   white-space: nowrap;
-  display: flex;
-  flex-wrap: nowrap;
+  gap: 60px; /* Precise gap between all elements */
+  animation: scroll 40s linear infinite;
+  width: max-content;
+  align-items: center;
 }
 
-.scroller {
-  font-weight: 800;
+.item {
+  display: flex;
+  align-items: center;
+  gap: 60px; /* This gap is between the text and the dot inside the item */
+  color: var(--bg) !important;
+  font-size: 13px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-size: 32px;
-  display: flex;
-  white-space: nowrap;
-  flex-wrap: nowrap;
-  line-height: 1;
+  font-weight: 700;
 }
 
-.scroller span {
-  display: block;
-  margin-right: 32px;
-  color: var(--text-primary); /* Keeps fill invisible when transparent */
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
+.dot {
+  width: 4px;
+  height: 4px;
+  background: var(--bg);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
 }
 
 @media (max-width: 768px) {
-  .scroller {
-    font-size: 24px;
+  .marqueeWrapper {
+    padding: 8px 0 !important;
+  }
+  .item {
+    font-size: 11px;
+    gap: 8px;
+  }
+  .track {
+    gap: 40px;
   }
 }

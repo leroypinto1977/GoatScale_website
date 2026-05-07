@@ -33,6 +33,19 @@
   margin: 12px 0 24px;
 }
 
+.accent {
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.accent::first-letter {
+  text-transform: uppercase;
+}
+
 .subtitle {
   font-size: clamp(16px, 1.5vw, 20px);
   line-height: 1.6;

@@ -19,7 +19,7 @@ const TEAM = [
     name: 'KENNET ALPHY',
     title: 'FOUNDER & LEAD ENGINEER',
     tagline: 'Built on the belief that code should be as elegant as it is powerful. Kennet leads the technical vision at Goat Scale.',
-    image: '/images/kennet_hq.jpg',
+    image: '/images/kennet_hq.png',
     eye: '/images/kennet_collage.png', // Silhouette edit
     abstract: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80', // Architecture
   },
@@ -27,8 +27,8 @@ const TEAM = [
     name: 'ALFRED JOSHUA',
     title: 'DESIGN LEAD',
     tagline: 'Obsessed with the intersection of architecture and interaction. Alfred ensures every pixel serves a purpose.',
-    image: '/images/alfred_main.png',
-    abstract: '/images/alfred_grey.jpg', // Standing detail edit
+    image: '/images/Alfred Joshua.jpeg',
+    abstract: '/images/alfred_profile.png', // Standing detail edit
   },
 ];
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
       <section className={styles.bentoGallery}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className={styles.bentoGrid}>
-            
+
             {/* Large Left */}
             <div className={`${styles.bentoItem} ${styles.bentoLarge}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -136,7 +136,7 @@ export default function AboutPage() {
       {/* Magazine People Section */}
       <section className={styles.magazineSection}>
         <div className={styles.magazineHeader}>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -149,9 +149,9 @@ export default function AboutPage() {
 
         <div className="container">
           <div className={styles.magazineGridTwoCol}>
-            
+
             {/* Column 1: KENNET ALPHY */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -165,8 +165,8 @@ export default function AboutPage() {
 
               <div className={styles.editorialRow}>
                 <div className={styles.detailShotWrap}>
-                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                   <img src={TEAM[0].eye} alt="Collage detail" className={styles.detailShot} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={TEAM[0].eye} alt="Collage detail" className={styles.detailShot} />
                 </div>
                 <div className={styles.memberInfo}>
                   <h3 className={styles.memberName}>{TEAM[0].name}</h3>
@@ -177,7 +177,7 @@ export default function AboutPage() {
             </motion.div>
 
             {/* Column 2: ALFRED JOSHUA */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -191,8 +191,8 @@ export default function AboutPage() {
 
               <div className={styles.editorialRow}>
                 <div className={styles.detailShotWrap}>
-                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                   <img src={TEAM[1].abstract} alt="Standing detail" className={styles.detailShot} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={TEAM[1].abstract} alt="Standing detail" className={styles.detailShot} />
                 </div>
                 <div className={styles.memberInfo}>
                   <h3 className={styles.memberName}>{TEAM[1].name}</h3>

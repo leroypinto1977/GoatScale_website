@@ -1,6 +1,6 @@
 .process {
   position: relative;
-  background: var(--surface);
+  overflow: visible; /* Required for sticky */
 }
 
 .layout {
@@ -20,6 +20,20 @@
 
 .title {
   max-width: 500px;
+  font-weight: 600;
+}
+
+.boldAccent {
+  color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.boldAccent::first-letter {
+  text-transform: uppercase;
 }
 
 .headerExtra {
@@ -31,8 +45,8 @@
 }
 
 .headerDesc {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 15px; /* Shrunk */
+  line-height: 1.7;
   color: var(--text-secondary);
 }
 
@@ -49,40 +63,55 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 14px;
+  font-size: 11px; /* Smaller label style */
   font-weight: 600;
   color: var(--text-primary);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 .principles li svg {
   color: var(--accent);
 }
 
-.accent {
-  color: var(--accent);
-}
-
-/* Grid */
+/* Grid (Scrolling Area) */
 .grid {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding-left: 0;
+  padding-left: 64px;
 }
 
-/* Step */
+/* Progress Line */
+.progressLineBg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.progressLineActive {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: var(--accent);
+}
+
+/* Step Card */
 .step {
-  padding: 60px 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  position: relative;
-  transition: opacity var(--transition-base);
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 0;
 }
 
 .step:last-child {
-  border-bottom: none;
+  min-height: auto;
   padding-bottom: 0;
 }
 
@@ -92,28 +121,23 @@
 
 /* Giant Number */
 .bigNumber {
-  font-size: clamp(48px, 5vw, 72px);
+  font-size: clamp(48px, 4.5vw, 80px); /* Premium downscale */
   font-weight: 900;
   letter-spacing: -0.05em;
   line-height: 1;
   color: var(--border);
-  transition: color 0.4s ease;
   user-select: none;
-}
-
-.step:hover .bigNumber {
-  color: var(--text-primary);
 }
 
 /* Step content */
 .stepContent {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .stepTitle {
-  font-size: 24px;
+  font-size: clamp(20px, 2.2vw, 28px); /* Shrunk */
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text-primary);
@@ -121,8 +145,8 @@
 }
 
 .stepDesc {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 14px; /* Precision size */
+  line-height: 1.7;
   color: var(--text-secondary);
 }
 
@@ -134,13 +158,12 @@
   .header {
     position: relative;
     top: 0;
-    margin-bottom: 0;
   }
   .grid {
-    border-left: none;
-    padding-left: 0;
+    padding-left: 40px;
   }
   .step {
+    min-height: auto;
     padding: 40px 0;
   }
 }

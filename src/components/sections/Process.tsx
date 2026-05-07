@@ -1,12 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import styles from './Process.module.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
@@ -35,78 +31,107 @@ const steps = [
   },
 ];
 
-export default function Process() {
-  const sectionRef = useRef<HTMLElement>(null);
+function ProcessStep({ step }: { step: typeof steps[0] }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start center", "end center"]
+  });
 
-  useEffect(() => {
-    // Leaving empty or removing gsap if not needed.
-    // We removed the connector lines, so no GSAP animation is needed here anymore.
-  }, []);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.98, 1, 1, 0.98]);
+  const numberColor = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    ["rgba(183, 231, 161, 0.15)", "rgba(183, 231, 161, 1)", "rgba(183, 231, 161, 1)", "rgba(183, 231, 161, 0.15)"]
+  );
 
   return (
-    <section className={`section ${styles.process}`} id="process" ref={sectionRef}>
+    <motion.div
+      ref={ref}
+      style={{ opacity, scale }}
+      className={styles.step}
+    >
+      {/* Giant number */}
+      <motion.div 
+        style={{ color: numberColor }}
+        className={styles.bigNumber}
+      >
+        {step.number}
+      </motion.div>
+
+      {/* Content */}
+      <div className={styles.stepContent}>
+        <h3 className={styles.stepTitle}>{step.title}</h3>
+        <p className={styles.stepDesc}>{step.description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Process() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <section className={`section ${styles.process}`} id="process" ref={containerRef}>
       <div className="container">
         <div className={styles.layout}>
           {/* Sticky Header Left */}
-          <motion.div
-            className={styles.header}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div className={styles.header}>
             <span className="label">How We Work</span>
-            <h2 className={`heading-xl ${styles.title}`}>
-              A process built<br />for <span className={styles.accent}>outcomes.</span>
+            <h2 className={`display ${styles.title}`}>
+              A process built<br />for <span className={styles.boldAccent}>outcomes.</span>
             </h2>
 
             <div className={styles.headerExtra}>
               <p className={styles.headerDesc}>
-                We don&apos;t just write code. We architect scalable infrastructure that gives your team the velocity they need to win. Everything is custom.
+                We don&apos;t just write code. We architect scalable infrastructure that gives your team the velocity they need to win.
               </p>
               <ul className={styles.principles}>
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                   Zero Templates
                 </li>
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                   Custom Architecture
                 </li>
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                   Iterative Scaling
                 </li>
               </ul>
             </div>
-          </motion.div>
+          </div>
 
           {/* Scrolling Steps Right */}
           <div className={styles.grid}>
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                className={styles.step}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {/* Giant number */}
-                <div className={styles.bigNumber}>{step.number}</div>
+            {/* Progress Line */}
+            <div className={styles.progressLineBg}>
+              <motion.div 
+                className={styles.progressLineActive}
+                style={{ scaleY, originY: 0 }}
+              />
+            </div>
 
-                {/* Content */}
-                <div className={styles.stepContent}>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  <p className={styles.stepDesc}>{step.description}</p>
-                </div>
-              </motion.div>
+            {steps.map((step) => (
+              <ProcessStep key={step.number} step={step} />
             ))}
           </div>
         </div>

@@ -23,7 +23,7 @@ export default function BookACallPage() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="label">Scheduler</span>
-            <h1 className={styles.title}>Book a discovery call.</h1>
+            <h1 className={styles.title}>Book a discovery <span className={styles.accent}>call.</span></h1>
             <p className={styles.subtitle}>
               Pick a time that works for you. No sales pressure — just a conversation 
               about your goals and how we can help you scale.

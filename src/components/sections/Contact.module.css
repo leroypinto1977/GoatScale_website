@@ -20,14 +20,23 @@
 
 .headline {
   margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .accent {
   color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: capitalize;
 }
 
 .desc {
   max-width: 400px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
 }
 
 .emailLink {

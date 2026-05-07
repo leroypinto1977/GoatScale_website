@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import type { Project } from '@/lib/projects';
 import styles from './page.module.css';
 
@@ -12,59 +13,118 @@ interface Props {
 }
 
 export default function CaseStudyClient({ project, prev, next }: Props) {
-  return (
-    <div className={styles.page}>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
 
-      {/* Hero */}
-      <section className={styles.hero}>
-        <div className={styles.heroImgWrap}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.heroImage} alt={project.title} className={styles.heroImg} />
-          <div className={styles.heroOverlay} />
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  return (
+    <div ref={containerRef} className={styles.page}>
+      
+      {/* 1. Layered Editorial Hero */}
+      <section className={styles.editorialHero}>
+        {/* Massive Background Typography — KILLS THE EMPTY FEELING */}
+        <div className={styles.heroBgText}>
+          {project.title.split(' ')[0]}
         </div>
-        <div className="container">
-          <motion.div
-            className={styles.heroContent}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Link href="/work" className={styles.backLink}>← All Work</Link>
-            <div className={styles.heroBadges}>
-              <span className={styles.badge}>{project.category}</span>
-              <span className={styles.badge}>{project.year}</span>
+
+        <div className={styles.heroLayout}>
+          {/* Left: Branding & Narrative Layer */}
+          <div className={styles.heroLeft}>
+            <Link href="/work" className={styles.backLink}>
+              <span className={styles.backArrow}>←</span> BACK TO ARCHIVE
+            </Link>
+            
+            <div className={styles.heroMainContent}>
+              <motion.div 
+                className={styles.titleWrap}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className={styles.categoryLabel}>
+                  <span className={styles.statusDot} /> {project.category} · {project.year}
+                </div>
+                <h1 className={styles.mainTitle}>{project.title}</h1>
+                <div className={styles.clientLabel}>Built for {project.client}</div>
+              </motion.div>
+
+              <motion.div 
+                className={styles.heroQuickSpecs}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <div className={styles.specBox}>
+                  <span className={styles.specLabel}>KEY OUTCOME</span>
+                  <div className={styles.specValue}>{project.results[0].value}</div>
+                </div>
+                <div className={styles.specBox}>
+                  <span className={styles.specLabel}>TECHNOLOGY</span>
+                  <div className={styles.specValue}>{project.tags[0]}</div>
+                </div>
+              </motion.div>
             </div>
-            <h1 className={styles.heroTitle}>{project.title}</h1>
-            <p className={styles.heroClient}>{project.client}</p>
+          </div>
+
+          {/* Right: Framed Cinematic Visual */}
+          <motion.div 
+            className={styles.heroRight}
+            style={{ y: heroY, opacity: heroOpacity }}
+          >
+            <div className={styles.visualFrame}>
+              <div className={styles.frameHeader}>
+                <div className={styles.frameCoord}>REF_ID: GS-{(Math.random() * 1000).toFixed(0)}</div>
+                <div className={styles.frameCoord}>40.7128° N, 74.0060° W</div>
+              </div>
+              <div className={styles.heroImgContainer}>
+                <img src={project.heroImage} alt={project.title} className={styles.heroImg} />
+                <div className={styles.imageOverlay}></div>
+              </div>
+              <div className={styles.frameFooter}>
+                <div className={styles.frameStatus}>
+                  PROJECT_LOG // {project.year}
+                </div>
+                <div className={styles.frameDate}>SECURED_DATA_STREAM</div>
+              </div>
+            </div>
           </motion.div>
+
         </div>
       </section>
 
-      {/* Overview */}
-      <section className={`section ${styles.overview}`}>
+      {/* 2. Blueprint Overview */}
+      <section className={styles.blueprintOverview}>
         <div className="container">
-          <div className={styles.overviewGrid}>
-            <div>
-              <span className="label">The Summary</span>
-              <p className={`body-lg ${styles.overviewText}`}>{project.summary}</p>
+          <div className={styles.overviewLayout}>
+            <div className={styles.overviewMain}>
+              <span className={styles.sectionLabel}>The Thesis</span>
+              <p className={styles.summaryText}>{project.summary}</p>
             </div>
-            <div className={styles.metaPanel}>
-              <div className={styles.metaItem}>
-                <span className={styles.metaKey}>Client</span>
-                <span className={styles.metaVal}>{project.client}</span>
+            
+            <div className={styles.metadataGrid}>
+              <div className={styles.metaBox}>
+                <span className={styles.metaLabel}>Client</span>
+                <span className={styles.metaValue}>{project.client}</span>
               </div>
-              <div className={styles.metaItem}>
-                <span className={styles.metaKey}>Year</span>
-                <span className={styles.metaVal}>{project.year}</span>
+              <div className={styles.metaBox}>
+                <span className={styles.metaLabel}>Year</span>
+                <span className={styles.metaValue}>{project.year}</span>
               </div>
-              <div className={styles.metaItem}>
-                <span className={styles.metaKey}>Category</span>
-                <span className={styles.metaVal}>{project.category}</span>
+              <div className={styles.metaBox}>
+                <span className={styles.metaLabel}>Domain</span>
+                <span className={styles.metaValue}>{project.category}</span>
               </div>
-              <div className={styles.metaItem}>
-                <span className={styles.metaKey}>Stack</span>
-                <div className={styles.tagRow}>
-                  {project.tags.map(t => <span key={t} className={styles.tag}>{t}</span>)}
+              <div className={styles.metaBox}>
+                <span className={styles.metaLabel}>System Stack</span>
+                <div className={styles.stackWrap}>
+                  {project.tags.map(tag => (
+                    <span key={tag} className={styles.stackTag}>{tag}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -72,105 +132,44 @@ export default function CaseStudyClient({ project, prev, next }: Props) {
         </div>
       </section>
 
-      {/* Challenge */}
-      <section className={`section ${styles.textSection}`}>
+      {/* 3. Narrative Sections */}
+      <section className={styles.narrative}>
         <div className="container">
-          <div className={styles.textBlock}>
-            <span className="label">The Challenge</span>
-            <p className={`body-lg ${styles.bodyText}`}>{project.challenge}</p>
+          <div className={styles.narrativeGrid}>
+            <div className={styles.narrativeBlock}>
+              <span className={styles.sectionLabel}>Challenge</span>
+              <p className={styles.narrativeText}>{project.challenge}</p>
+            </div>
+            <div className={styles.narrativeBlock}>
+              <span className={styles.sectionLabel}>Execution</span>
+              <p className={styles.narrativeText}>{project.approach}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Approach */}
-      <section className={`section ${styles.textSection} ${styles.altBg}`}>
+      {/* 4. Technical Results (Diagnostics style) */}
+      <section className={styles.diagnostics}>
         <div className="container">
-          <div className={styles.textBlock}>
-            <span className="label">Our Approach</span>
-            <p className={`body-lg ${styles.bodyText}`}>{project.approach}</p>
+          <div className={styles.diagnosticsHeader}>
+            <span className={styles.sectionLabel}>Performance Data</span>
+            <h2 className={styles.diagnosticsTitle}>Quantifiable Impact</h2>
           </div>
-        </div>
-      </section>
-
-      {/* Results */}
-      <section className={`section ${styles.results}`}>
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="label">The Results</span>
-          </motion.div>
+          
           <div className={styles.resultsGrid}>
-            {project.results.map((r, i) => (
-              <motion.div
-                key={r.label}
-                className={styles.resultCard}
-                initial={{ opacity: 0, y: 32 }}
+            {project.results.map((result, i) => (
+              <motion.div 
+                key={i}
+                className={styles.resultItem}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
               >
-                <span className={styles.resultValue}>{r.value}</span>
-                <span className={styles.resultLabel}>{r.label}</span>
+                <div className={styles.resultValue}>{result.value}</div>
+                <div className={styles.resultLabel}>{result.label}</div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      <section className={styles.gallery}>
-        <div className={styles.galleryStrip}>
-          {project.gallery.map((src, i) => (
-            <motion.div
-              key={i}
-              className={styles.galleryItem}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={`${project.title} screenshot ${i + 1}`} className={styles.galleryImg} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Next/Prev Projects */}
-      <section className={`section ${styles.adjacent}`}>
-        <div className="container">
-          <div className={styles.adjacentGrid}>
-            {prev && (
-              <Link href={`/work/${prev.slug}`} className={styles.adjCard}>
-                <span className={styles.adjDir}>← Previous</span>
-                <span className={styles.adjTitle}>{prev.title}</span>
-                <span className={styles.adjClient}>{prev.client}</span>
-              </Link>
-            )}
-            {next && (
-              <Link href={`/work/${next.slug}`} className={`${styles.adjCard} ${styles.adjRight}`}>
-                <span className={styles.adjDir}>Next →</span>
-                <span className={styles.adjTitle}>{next.title}</span>
-                <span className={styles.adjClient}>{next.client}</span>
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className={styles.ctaBand}>
-        <div className="container">
-          <div className={styles.ctaInner}>
-            <div>
-              <h2 className={styles.ctaTitle}>Liked what you saw?</h2>
-              <p className={styles.ctaSub}>Let&apos;s build something like this — or better — for you.</p>
-            </div>
-            <Link href="/start-a-project" className="btn btn-primary">Start a Project →</Link>
           </div>
         </div>
       </section>

@@ -37,7 +37,7 @@ export default function Contact() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="label">Get In Touch</span>
-            <h2 className={`${styles.headline} heading-xl`}>
+            <h2 className={`${styles.headline} display`}>
               Ready to<br />
               <span className={styles.accent}>Scale?</span>
             </h2>

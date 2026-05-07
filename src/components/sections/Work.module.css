@@ -1,13 +1,14 @@
 .work {
   position: relative;
-  background: var(--surface);
+  background: var(--bg);
+  padding: 160px 0;
 }
 
 .header {
-  margin-bottom: 64px;
+  margin-bottom: 120px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 
 .headerRow {
@@ -19,226 +20,143 @@
 }
 
 .title {
-  flex-shrink: 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-primary);
 }
 
 .accent {
   color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.accent::first-letter {
+  text-transform: uppercase;
 }
 
 .headerDesc {
-  max-width: 300px;
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-muted);
   text-align: right;
 }
 
-/* Asymmetric Grid */
+/* Elite Architectural Grid */
 .grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px; /* Massive gap for luxury feel */
   align-items: start;
 }
 
-.col1,
+.col1 {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
 .col2 {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 120px;
+  padding-top: 160px; /* Large architectural offset */
 }
 
-.col2 {
-  padding-top: 80px;
-}
-
-/* Card */
+/* Card Refinement */
 .card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: border-color var(--transition-base), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--transition-base);
+  position: relative;
+  width: 100%;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card:hover {
-  transform: scale(1.05) translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-}
-
-/* Image */
 .imageWrap {
   position: relative;
-  aspect-ratio: 16/9;
+  aspect-ratio: 3/2; /* Sophisticated museum ratio */
   overflow: hidden;
-}
-
-.featured .imageWrap {
-  aspect-ratio: 4/3;
-}
-
-.imagePlaceholder {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  border-radius: 4px; /* Subtle radius for technical feel */
+  background: var(--surface);
+  border: 1px solid rgba(234, 228, 214, 0.05);
 }
 
 .actualImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.85;
 }
 
 .card:hover .actualImage {
-  transform: scale(1.12);
+  transform: scale(1.05);
+  opacity: 1;
 }
 
-.placeholderInner {
-  width: 100%;
-  height: 100%;
-  background: var(--surface);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.placeholderGrid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.placeholderContent {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  max-width: 240px;
-  position: relative;
-  z-index: 1;
-}
-
-.placeholderBar {
-  height: 8px;
-  background: rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-}
-
-.placeholderCard {
-  height: 80px;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
-  margin: 4px 0;
-}
-
-.placeholderRow {
-  display: flex;
-  gap: 8px;
-}
-
-.placeholderBox {
-  flex: 1;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 6px;
-}
-
-.placeholderLabel {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-  background: var(--surface);
-  padding: 4px 10px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-}
-
-
-
-/* Card Content */
 .cardContent {
-  padding: 24px;
+  padding: 32px 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .cardMeta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
 }
 
 .category {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent);
+  opacity: 0.8;
 }
 
 .tags {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .tag {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: var(--accent-soft);
-  padding: 3px 8px;
-  border-radius: 100px;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(234, 228, 214, 0.1);
+  padding-bottom: 2px;
 }
 
 .projectTitle {
   font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
 }
 
 .projectDesc {
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--text-muted);
+  max-width: 400px;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 80px;
   }
-
   .col2 {
     padding-top: 0;
   }
-
-  .headerRow {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .headerDesc {
     text-align: left;
   }

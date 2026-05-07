@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import MagneticButton from '@/components/ui/MagneticButton';
 import styles from './Navbar.module.css';
 
 const navLinks = [
@@ -47,7 +48,6 @@ export default function Navbar() {
         <div className={`container ${styles.inner}`}>
           {/* Logo */}
           <Link href="/" className={styles.logo}>
-            <span className={styles.logoIcon}>▲</span>
             Goat Scale
           </Link>
 
@@ -75,12 +75,12 @@ export default function Navbar() {
           </ul>
 
           {/* Desktop CTA */}
-          <Link href="/start-a-project" className={`btn btn-primary ${styles.cta}`}>
+          <MagneticButton href="/start-a-project" className={`btn btn-primary ${styles.cta}`}>
             Start a Project
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </Link>
+          </MagneticButton>
 
           {/* Mobile Hamburger */}
           <button

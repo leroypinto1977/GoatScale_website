@@ -10,7 +10,7 @@ const projects = [
     title: 'FlowDesk CRM',
     category: 'Web Application',
     description: 'A full-stack CRM system built for a logistics company, replacing 6 manual spreadsheet workflows with one unified platform.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+    image: '/images/projects/flowdesk-thumb.png',
     tags: ['Next.js', 'PostgreSQL', 'System Design'],
     featured: true,
   },
@@ -19,7 +19,7 @@ const projects = [
     title: 'Pulse Mobile',
     category: 'Mobile App',
     description: 'Cross-platform fitness tracking app with real-time data sync and AI-powered coaching.',
-    image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80',
+    image: '/images/projects/pulse-thumb.png',
     tags: ['React Native', 'Node.js'],
     featured: false,
   },
@@ -28,7 +28,7 @@ const projects = [
     title: 'Meridian Studios',
     category: 'Web Development',
     description: 'Brand website for a premium creative studio. Zero-bloat, 100 Lighthouse score, fully animated.',
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/projects/meridian-thumb.png',
     tags: ['Next.js', 'GSAP', 'CMS'],
     featured: false,
   },
@@ -37,7 +37,7 @@ const projects = [
     title: 'WarehouseOS',
     category: 'Internal System',
     description: 'End-to-end warehouse management system with live inventory tracking and automated reorder workflows.',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/projects/warehouse-thumb.png',
     tags: ['React', 'Python', 'Automation'],
     featured: true,
   },
@@ -50,8 +50,17 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, featured, delay = 0 }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
   return (
     <motion.div
+      ref={cardRef}
       className={`${styles.card} ${featured ? styles.featured : ''}`}
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -60,12 +69,12 @@ function ProjectCard({ project, featured, delay = 0 }: ProjectCardProps) {
     >
       {/* Image */}
       <div className={styles.imageWrap}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <motion.img
           src={project.image}
           alt={project.title}
           className={styles.actualImage}
           loading="lazy"
+          style={{ y, scale: 1.2 }} /* Over-scale slightly to provide padding for parallax */
         />
       </div>
 
@@ -109,7 +118,7 @@ export default function Work() {
         >
           <span className="label">Selected Work</span>
           <div className={styles.headerRow}>
-            <h2 className={`heading-xl ${styles.title}`}>
+            <h2 className={`display ${styles.title}`}>
               Work that<br />
               <span className={styles.accent}>speaks for itself.</span>
             </h2>

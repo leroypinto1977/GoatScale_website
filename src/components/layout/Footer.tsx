@@ -7,7 +7,6 @@ export default function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.top}>
           <Link href="/" className={styles.logo}>
-            <span className={styles.logoIcon}>▲</span>
             Goat Scale
           </Link>
           <p className={styles.tagline}>Built with intent. Designed to scale.</p>

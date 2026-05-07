@@ -41,7 +41,7 @@ export default function Services() {
         {/* Section header */}
         <div className={styles.header}>
           <span className="label">What We Build</span>
-          <h2 className={`heading-xl ${styles.title}`}>
+          <h2 className={`display ${styles.title}`}>
             Everything you need<br />
             to <span className={styles.accent}>move fast.</span>
           </h2>

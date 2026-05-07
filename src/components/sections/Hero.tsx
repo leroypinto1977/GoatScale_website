@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import MagneticButton from '@/components/ui/MagneticButton';
 import styles from './Hero.module.css';
 
@@ -10,6 +10,7 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -36,134 +37,148 @@ export default function Hero() {
 
   }, []);
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [5, 15]);
+
   return (
-    <section className={styles.hero} id="hero">
-      <div className={`container ${styles.content}`}>
-        <div className={styles.left}>
-          {/* Label */}
-          <div className={styles.label}>
-            <span className={styles.labelDot} />
-            Dev Agency · Systems · Scale
-          </div>
+    <section ref={containerRef} className={`section ${styles.hero}`} id="home">
+      <div className="container">
+        <div className={styles.content}>
+          {/* Left Side — Copy */}
+          <div className={styles.left}>
+            {/* Label */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={styles.label}
+            >
+              <div className={styles.labelDot} />
+              DEV AGENCY · SYSTEMS · SCALE
+            </motion.div>
 
-          {/* Headline */}
-          <div className={styles.headline}>
-            <h1 ref={headlineRef} className="display">
-              <span className="word" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                We build the <span className={styles.accentLine}>systems</span>
-              </span>
-              <br />
-              <span className="word" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                that let you scale
-              </span>
-            </h1>
-          </div>
-
-          {/* Sub-copy */}
-          <p
-            ref={subRef}
-            className={`body-lg ${styles.sub}`}
-            style={{ opacity: 0 }}
-          >
-            We design and build websites, web apps, and mobile applications —
-            and the internal workflows that help your company move 10x faster.
-          </p>
-
-          {/* CTAs */}
-          <div className={styles.ctas} ref={ctaRef} style={{ opacity: 0 }}>
-            <MagneticButton className={`btn btn-primary`} href="/work">
-              See Our Work
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="square" />
-              </svg>
-            </MagneticButton>
-            <MagneticButton className={`btn btn-outline`} href="/book-a-call">
-              Book a Call
-            </MagneticButton>
-          </div>
-
-          {/* Stats */}
-          <div className={styles.stats}>
-            {[
-              { value: '50+', label: 'Systems Built' },
-              { value: '10x', label: 'Faster Operations' },
-              { value: '3+', label: 'Years Building' },
-            ].map((stat) => (
-              <div key={stat.label} className={styles.stat}>
-                <span className={styles.statValue}>{stat.value}</span>
-                <span className={styles.statLabel}>{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right visual panel */}
-        <div className={styles.right}>
-          <motion.div
-            className={styles.mockupWrapper}
-            initial={{ opacity: 0, y: 40, rotateX: 10 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Main Code Window */}
-            <div className={styles.codeWindow}>
-              <div className={styles.windowHeader}>
-                <div className={styles.macDots}>
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <div className={styles.windowTitle}>system_core.ts</div>
-              </div>
-              <div className={styles.windowBody}>
-                <div className={styles.lineNumbers}>
-                  <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-                </div>
-                <pre className={styles.codeBlock}>
-                  <code>
-                    <span className={styles.keyword}>export class</span> <span className={styles.class}>ScaleEngine</span> {'{'}
-                    {'\n'}  <span className={styles.keyword}>private</span> architecture: <span className={styles.type}>System[]</span>;
-                    {'\n'}
-                    {'\n'}  <span className={styles.keyword}>constructor</span>(config: <span className={styles.type}>Config</span>) {'{'}
-                    {'\n'}    <span className={styles.keyword}>this</span>.architecture = <span className={styles.function}>buildScalableCore</span>(config);
-                    {'\n'}  {'}'}
-                    {'\n'}
-                    {'\n'}  <span className={styles.keyword}>public</span> <span className={styles.function}>deploy</span>() {'{'}
-                    {'\n'}    <span className={styles.keyword}>return this</span>.architecture.<span className={styles.function}>launch</span>();
-                    {'\n'}  {'}'}
-                    {'\n'}{'}'}
-                  </code>
-                </pre>
-              </div>
+            {/* Headline */}
+            <div className={styles.headline}>
+              <h1 ref={headlineRef} className="display">
+                <span className={styles.headlineLine}>
+                  We build the <span className={styles.accentLine}>systems</span>
+                </span>
+                <span className={styles.headlineLine}>
+                  that let you <span className={styles.accentLine}>scale.</span>
+                </span>
+              </h1>
             </div>
 
-            {/* Overlapping Performance Widget */}
-            <motion.div
-              className={styles.widget}
-              initial={{ opacity: 0, x: 20, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+            {/* Sub-copy */}
+            <p
+              ref={subRef}
+              className={`body-lg ${styles.sub}`}
+              style={{ opacity: 0 }}
             >
-              <div className={styles.widgetHeader}>
-                <span className={styles.statusDot}></span>
-                Global Edge Network
+              We design and build websites, web apps, and mobile applications —
+              and the internal workflows that help your company move fast.
+            </p>
+
+            {/* CTAs */}
+            <div ref={ctaRef} className={styles.ctas} style={{ opacity: 0 }}>
+              <MagneticButton className="btn btn-primary" href="/work">
+                See Our Work
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </MagneticButton>
+              <MagneticButton className="btn btn-outline" href="/book-a-call">
+                Book a Call
+              </MagneticButton>
+            </div>
+
+            {/* Quick Stats */}
+            <div className={styles.stats}>
+              <div className={styles.stat}>
+                <span className={styles.statValue}>50+</span>
+                <span className={styles.statLabel}>Systems Built</span>
               </div>
-              <div className={styles.widgetBody}>
-                <div className={styles.metric}>
-                  <span className={styles.metricLabel}>Latency</span>
-                  <span className={styles.metricValue}>12ms</span>
+              <div className={styles.stat}>
+                <span className={styles.statValue}>10x</span>
+                <span className={styles.statLabel}>Faster Operations</span>
+              </div>
+              <div className={styles.stat}>
+                <span className={styles.statValue}>3+</span>
+                <span className={styles.statLabel}>Years Building</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side — Visual Reveal */}
+          <div className={styles.right}>
+            <motion.div 
+              className={styles.mockupWrapper}
+              style={{ y: y1, rotateX }}
+            >
+              <div className={styles.codeWindow}>
+                <div className={styles.windowHeader}>
+                  <div className={styles.macDots}>
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <div className={styles.windowTitle}>system_core.ts</div>
                 </div>
-                <div className={styles.metric}>
-                  <span className={styles.metricLabel}>Uptime</span>
-                  <span className={styles.metricValue}>99.99%</span>
+                <div className={styles.windowBody}>
+                  <div className={styles.lineNumbers}>
+                    {Array.from({ length: 9 }).map((_, i) => (
+                      <span key={i}>{i + 1}</span>
+                    ))}
+                  </div>
+                  <pre className={styles.codeBlock}>
+                    <code>
+                      <div><span className={styles.keyword}>export class</span> <span className={styles.class}>ScaleEngine</span> {'{'}</div>
+                      <div>&nbsp;&nbsp;<span className={styles.keyword}>private</span> architecture: <span className={styles.type}>System[]</span>;</div>
+                      <br />
+                      <div>&nbsp;&nbsp;<span className={styles.keyword}>constructor</span>(config: <span className={styles.type}>Config</span>) {'{'}</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className={styles.keyword}>this</span>.architecture = <span className={styles.function}>buildScalableCore</span>(config);</div>
+                      <div>&nbsp;&nbsp;{'}'}</div>
+                      <br />
+                      <div>&nbsp;&nbsp;<span className={styles.keyword}>public</span> <span className={styles.function}>deploy</span>() {'{'}</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className={styles.keyword}>return this</span>.architecture.<span className={styles.function}>launch</span>();</div>
+                      <div>&nbsp;&nbsp;{'}'}</div>
+                      <div>{'}'}</div>
+                    </code>
+                  </pre>
                 </div>
               </div>
+
+              {/* Floating Widget */}
+              <motion.div 
+                className={styles.widget}
+                style={{ y: y2 }}
+              >
+                <div className={styles.widgetHeader}>
+                  <div className={styles.statusDot} />
+                  Global Edge Network
+                </div>
+                <div className={styles.widgetBody}>
+                  <div className={styles.metric}>
+                    <span className={styles.metricLabel}>Latency</span>
+                    <span className={styles.metricValue}>12ms</span>
+                  </div>
+                  <div className={styles.metric}>
+                    <span className={styles.metricLabel}>Uptime</span>
+                    <span className={styles.metricValue}>99.99%</span>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className={styles.scrollHint}>
         <span>Scroll</span>
         <div className={styles.scrollLine} />

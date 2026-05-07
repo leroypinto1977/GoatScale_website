@@ -7,10 +7,9 @@
   padding-top: 100px;
   background-color: var(--bg);
   background-image:
-    linear-gradient(var(--surface-2) 1px, transparent 1px),
-    linear-gradient(90deg, var(--surface-2) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center top;
+    linear-gradient(rgba(183, 231, 161, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(183, 231, 161, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 /* Fade out the grid at the edges for a clean look */
@@ -18,25 +17,24 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, var(--bg) 80%);
+  background: radial-gradient(circle at 40% 40%, transparent 0%, var(--bg) 90%);
   pointer-events: none;
 }
 
 /* Content */
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 120px;
   align-items: center;
   position: relative;
   z-index: 1;
-  padding-bottom: 80px;
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 48px;
 }
 
 /* Label */
@@ -46,34 +44,53 @@
   gap: 10px;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--accent);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  padding: 7px 14px;
-  border-radius: var(--radius-sm);
+  border: 1px solid rgba(183, 231, 161, 0.2);
+  background: rgba(18, 22, 18, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: 100px;
   width: fit-content;
 }
 
 .labelDot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   background: var(--accent);
   border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
 }
 
 /* Headline */
 .headline h1 {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--text-primary);
+}
+
+.headlineLine {
+  display: block;
+}
+
+.headlineLine:nth-child(2) {
+  margin-left: 40px; /* Architectural offset */
+  margin-top: 8px;
 }
 
 .accentLine {
   color: var(--accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.accentLine::first-letter {
+  text-transform: uppercase;
 }
 
 /* Sub */
@@ -103,9 +120,9 @@
 }
 
 .statValue {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--accent);
   letter-spacing: -0.03em;
 }
 

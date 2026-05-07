@@ -58,7 +58,8 @@ const lines = [
   { text: 'We build the systems underneath it —', muted: false },
   { text: 'the workflows, the automations,', muted: false },
   { text: 'the infrastructure —', muted: false },
-  { text: 'so your team moves 10x faster.', accent: true, muted: false },
+  { text: 'so your team can move fast.', accent: true, muted: false },
+  { text: 'and systems are built to last.', accent: true, muted: false },
 ];
 
 function AnimatedLine({ line }: { line: typeof lines[0] }) {
