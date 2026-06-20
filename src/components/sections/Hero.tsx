@@ -15,14 +15,21 @@ export default function Hero() {
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    const words = headlineRef.current?.querySelectorAll('.word') || [];
+    // The headline is two line spans (direct children of the h1). Reveal
+    // them with a staggered clip — the previous `.word` selector matched
+    // nothing, so this both fixes the dead animation and clears the
+    // "GSAP target not found" warning.
+    const lines = headlineRef.current?.querySelectorAll(':scope > span') ?? [];
+
+    if (lines.length) {
+      tl.fromTo(
+        lines,
+        { opacity: 0, y: 60, clipPath: 'inset(100% 0 0 0)' },
+        { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1.0, stagger: 0.1, ease: 'power4.out' }
+      );
+    }
 
     tl.fromTo(
-      words,
-      { opacity: 0, y: 60, clipPath: 'inset(100% 0 0 0)' },
-      { opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)', duration: 1.0, stagger: 0.1, ease: 'power4.out' }
-    )
-      .fromTo(
         subRef.current,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.7 },

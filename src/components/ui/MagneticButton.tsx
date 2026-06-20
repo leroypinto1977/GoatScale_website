@@ -10,16 +10,18 @@ interface MagneticProps {
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
   href?: string;
+  disabled?: boolean;
 }
 
-export default function MagneticButton({ 
-  children, 
-  className = '', 
-  onClick, 
-  type = 'button', 
-  href 
+export default function MagneticButton({
+  children,
+  className = '',
+  onClick,
+  type = 'button',
+  href,
+  disabled = false,
 }: MagneticProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouse = (e: React.MouseEvent) => {
@@ -58,7 +60,7 @@ export default function MagneticButton({
     return (
       <Link href={href} style={{ display: 'inline-flex', textDecoration: 'none' }}>
         <motion.div
-          ref={ref as any}
+          ref={ref as React.Ref<HTMLDivElement>}
           className={className}
           {...animationProps}
           style={{ cursor: 'pointer' }}
@@ -71,12 +73,13 @@ export default function MagneticButton({
 
   return (
     <motion.button
-      ref={ref as any}
+      ref={ref as React.Ref<HTMLButtonElement>}
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={className}
       {...animationProps}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
       {content}
     </motion.button>

@@ -10,6 +10,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Register ScrollTrigger so it can sync with Lenis
     gsap.registerPlugin(ScrollTrigger);
 
+    // Respect users who ask for reduced motion — skip momentum scrolling
+    // entirely and leave native scrolling in place.
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    if (prefersReducedMotion) {
+      return;
+    }
+
     // Initialize Lenis for momentum scrolling
     const lenis = new Lenis({
       lerp: 0.08, // Controls the smoothing amount (lower is softer)

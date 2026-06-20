@@ -112,3 +112,8 @@
     font-size: 22px;
   }
 }
+
+/* Non-static so Framer Motion useScroll measures this line correctly. */
+.line {
+  position: relative;
+}

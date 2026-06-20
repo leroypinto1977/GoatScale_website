@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { getProjectBySlug, getAdjacentProjects, projects } from '@/lib/projects';
 import CaseStudyClient from './CaseStudyClient';
 import type { Metadata } from 'next';
@@ -23,5 +22,26 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const project = getProjectBySlug(slug);
   if (!project) notFound();
   const { prev, next } = getAdjacentProjects(slug);
-  return <CaseStudyClient project={project} prev={prev} next={next} />;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.summary,
+    url: `https://goatscale.com/work/${project.slug}`,
+    dateCreated: project.year,
+    creator: { '@type': 'Organization', name: 'Goat Scale' },
+    about: project.category,
+    keywords: project.tags.join(', '),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <CaseStudyClient project={project} prev={prev} next={next} />
+    </>
+  );
 }

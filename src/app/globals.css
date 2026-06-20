@@ -2,7 +2,9 @@
    GOAT SCALE — Global Design System (Light Luxe)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap');
+/* Fonts are loaded via next/font in layout.tsx (self-hosted, no
+   render-blocking @import). They are exposed as the CSS variables
+   --font-inter and --font-instrument-serif. */
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
@@ -17,11 +19,13 @@
   --accent-soft: rgba(183, 231, 161, 0.1);
 
   --text-primary: #EAE4D6;
-  --text-secondary: rgba(234, 228, 214, 0.8);
-  --text-muted: rgba(234, 228, 214, 0.5);
+  --text-secondary: rgba(234, 228, 214, 0.82);
+  /* Bumped from 0.5 → 0.68 so small (10–13px) muted text clears
+     WCAG AA contrast on the near-black background. */
+  --text-muted: rgba(234, 228, 214, 0.68);
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-instrument-serif), 'Instrument Serif', serif;
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -47,7 +51,7 @@ body::before {
   height: 100%;
   z-index: 9999;
   pointer-events: none;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  background-image: url("/noise.svg");
   filter: contrast(150%) brightness(1000%);
   opacity: 0.035;
   mix-blend-mode: overlay;
@@ -123,11 +127,40 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: clamp(32px, 3.5vw, 48px);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+}
+
+/* Real size hierarchy so heading level maps to visual weight.
+   Utility classes (.display, .heading-xl, etc.) can still override. */
+h1 {
+  font-size: clamp(32px, 3.5vw, 48px);
+}
+
+h2 {
+  font-size: clamp(28px, 2.8vw, 40px);
+}
+
+h3 {
+  font-size: clamp(22px, 2vw, 30px);
+  letter-spacing: -0.015em;
+}
+
+h4 {
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: -0.01em;
+}
+
+h5 {
+  font-size: clamp(16px, 1.3vw, 18px);
+  letter-spacing: -0.01em;
+}
+
+h6 {
+  font-size: 15px;
+  letter-spacing: 0;
 }
 
 .bold {
@@ -277,4 +310,46 @@ a {
   background: rgba(234, 228, 214, 0.08);
   border-color: rgba(234, 228, 214, 0.2);
   transform: translateY(-1px);
+}
+
+/* ── Focus Visibility (WCAG 2.4.7) ─────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Inputs restyle their border on focus; keep a clear ring too. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Don't show the ring for mouse users who don't need it. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Reduced Motion (WCAG 2.3.3) ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Stop the constant background grain/glow churn. */
+  body::before,
+  .section::after {
+    animation: none !important;
+  }
 }

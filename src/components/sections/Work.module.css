@@ -161,3 +161,7 @@
     text-align: left;
   }
 }
+/* Non-static so Framer Motion useScroll measures this card correctly. */
+.card {
+  position: relative;
+}

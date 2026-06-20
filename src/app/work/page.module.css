@@ -293,3 +293,14 @@
     align-items: flex-start;
   }
 }
+
+/* Touch devices have no hover — reveal card metadata + overlay by default
+   so the grid isn't just unlabeled images on mobile/tablet. */
+@media (hover: none) {
+  .overlay,
+  .cardTop,
+  .cardBottom {
+    opacity: 1;
+    transform: none;
+  }
+}

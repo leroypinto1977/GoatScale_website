@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import MagneticButton from '@/components/ui/MagneticButton';
 import styles from './Contact.module.css';
 
@@ -13,15 +12,38 @@ export default function Contact() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder submit — integrate with your backend/email service
-    setSubmitted(true);
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const firstError =
+          data?.errors && typeof data.errors === 'object'
+            ? Object.values(data.errors)[0]
+            : data?.error;
+        throw new Error(
+          (firstError as string) || 'Something went wrong. Please try again.',
+        );
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong.');
+    }
   };
 
   return (
@@ -135,12 +157,24 @@ export default function Contact() {
                   />
                 </div>
 
-                <MagneticButton type="submit" className={`btn btn-primary ${styles.submit}`}>
-                  Send Message
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                <MagneticButton
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className={`btn btn-primary ${styles.submit}`}
+                >
+                  {status === 'sending' ? 'Sending…' : 'Send Message'}
+                  {status !== 'sending' && (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
                 </MagneticButton>
+
+                {status === 'error' && (
+                  <p role="alert" className={styles.formError}>
+                    {errorMsg}
+                  </p>
+                )}
               </form>
             ) : (
               <motion.div

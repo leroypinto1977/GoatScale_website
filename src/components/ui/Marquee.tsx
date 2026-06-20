@@ -1,6 +1,3 @@
-'use client';
-
-import { motion, useScroll, useVelocity, useTransform, useSpring } from 'framer-motion';
 import styles from './Marquee.module.css';
 
 const items = [
@@ -16,33 +13,21 @@ const items = [
 ];
 
 export default function Marquee() {
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400
-  });
-  
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [1, 5], {
-    clamp: false
-  });
-
-  // Triple the items for a smooth infinite scroll
+  // Triple the items so the CSS keyframe (translateX -33.33%) loops seamlessly.
+  // The scroll is driven entirely by CSS animation, which is paused under
+  // `prefers-reduced-motion` via the global rule in globals.css.
   const displayItems = [...items, ...items, ...items];
 
   return (
-    <div className={styles.marqueeWrapper}>
-      <motion.div 
-        className={styles.track}
-        style={{ x: useTransform(velocityFactor, (v) => `${-v * 5}%`) }}
-      >
+    <div className={styles.marqueeWrapper} aria-hidden="true">
+      <div className={styles.track}>
         {displayItems.map((item, index) => (
           <div key={index} className={styles.item}>
             <span className={styles.label}>{item}</span>
             <div className={styles.dot} />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

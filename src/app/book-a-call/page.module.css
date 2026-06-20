@@ -151,3 +151,16 @@
     min-height: 400px;
   }
 }
+.schedulerFrame {
+  width: 100%;
+  min-height: 680px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+
+.inlineLink {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

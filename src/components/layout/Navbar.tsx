@@ -22,25 +22,26 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
-
-      // Scroll progress bar
-      const progress = document.getElementById('scroll-progress');
-      if (progress) {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.width = `${(scrollTop / docHeight) * 100}%`;
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close the mobile menu on Escape for keyboard users.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
   const handleNavClick = () => setMenuOpen(false);
 
   return (
     <>
-      <div id="scroll-progress" />
       <nav
         ref={navRef}
         className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}
@@ -86,7 +87,9 @@ export default function Navbar() {
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span />
             <span />
@@ -95,7 +98,11 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Overlay */}
-        <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}>
+        <div
+          id="mobile-menu"
+          className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ''}`}
+          inert={!menuOpen}
+        >
           <ul>
             {navLinks.map((link) => (
               <li key={link.href}>

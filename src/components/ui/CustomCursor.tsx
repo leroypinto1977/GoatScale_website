@@ -51,9 +51,12 @@ export default function CustomCursor() {
         x: springX,
         y: springY,
       }}
+      aria-hidden="true"
       animate={{
         scale: isHovered ? 2.5 : 1,
-        backgroundColor: isHovered ? 'rgba(183, 231, 161, 0.15)' : 'transparent',
+        // Use a fully-transparent rgba (not the keyword "transparent") so
+        // Framer Motion can interpolate the color instead of warning.
+        backgroundColor: isHovered ? 'rgba(183, 231, 161, 0.15)' : 'rgba(183, 231, 161, 0)',
         borderColor: isHovered ? 'rgba(183, 231, 161, 0.5)' : 'rgba(183, 231, 161, 0.3)',
       }}
     >

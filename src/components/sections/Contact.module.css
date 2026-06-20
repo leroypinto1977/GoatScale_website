@@ -195,6 +195,12 @@
   max-width: 300px;
 }
 
+.formError {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #ff8f8f;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .inner {

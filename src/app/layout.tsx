@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Instrument_Serif } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -9,6 +9,14 @@ import SmoothScroll from '@/components/layout/SmoothScroll';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
   display: 'swap',
 });
 
@@ -60,9 +68,27 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Goat Scale',
+    url: 'https://goatscale.com',
+    description:
+      'Dev agency that builds websites, web apps, mobile applications, and the internal systems that help companies scale 10x faster.',
+    email: 'hello@goatscale.com',
+    sameAs: ['https://linkedin.com', 'https://github.com'],
+  };
+
   return (
-    <html lang="en" className={inter.variable}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${instrumentSerif.variable}`}
+    >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <CustomCursor />
         <SmoothScroll>
           <ScrollProgress />

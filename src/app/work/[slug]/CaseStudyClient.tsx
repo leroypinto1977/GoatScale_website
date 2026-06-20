@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import type { Project } from '@/lib/projects';
@@ -10,6 +11,16 @@ interface Props {
   project: Project;
   prev: Project | null;
   next: Project | null;
+}
+
+// Stable 3-digit reference derived from the slug — deterministic across
+// server/client render (no Math.random hydration mismatch).
+function refIdFromSlug(slug: string): string {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) % 1000;
+  }
+  return String(hash).padStart(3, '0');
 }
 
 export default function CaseStudyClient({ project, prev, next }: Props) {
@@ -78,11 +89,18 @@ export default function CaseStudyClient({ project, prev, next }: Props) {
           >
             <div className={styles.visualFrame}>
               <div className={styles.frameHeader}>
-                <div className={styles.frameCoord}>REF_ID: GS-{(Math.random() * 1000).toFixed(0)}</div>
+                <div className={styles.frameCoord}>REF_ID: GS-{refIdFromSlug(project.slug)}</div>
                 <div className={styles.frameCoord}>40.7128° N, 74.0060° W</div>
               </div>
               <div className={styles.heroImgContainer}>
-                <img src={project.heroImage} alt={project.title} className={styles.heroImg} />
+                <Image
+                  src={project.heroImage}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className={styles.heroImg}
+                />
                 <div className={styles.imageOverlay}></div>
               </div>
               <div className={styles.frameFooter}>
@@ -158,7 +176,7 @@ export default function CaseStudyClient({ project, prev, next }: Props) {
           
           <div className={styles.resultsGrid}>
             {project.results.map((result, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 className={styles.resultItem}
                 initial={{ opacity: 0, y: 20 }}
@@ -173,6 +191,60 @@ export default function CaseStudyClient({ project, prev, next }: Props) {
           </div>
         </div>
       </section>
+
+      {/* 5. Gallery */}
+      {project.gallery.length > 0 && (
+        <section className={styles.gallery}>
+          <div className="container">
+            <span className={styles.sectionLabel}>Gallery</span>
+            <div className={styles.galleryGrid}>
+              {project.gallery.map((src, i) => (
+                <motion.figure
+                  key={src}
+                  className={styles.galleryItem}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}
+                >
+                  <Image
+                    src={src}
+                    alt={`${project.title} — view ${i + 1}`}
+                    width={1200}
+                    height={800}
+                    sizes="(max-width: 900px) 100vw, 33vw"
+                    className={styles.galleryImg}
+                  />
+                </motion.figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 6. Prev / Next navigation */}
+      <nav className={styles.pagination} aria-label="More projects">
+        <div className="container">
+          <div className={styles.paginationGrid}>
+            {prev ? (
+              <Link href={`/work/${prev.slug}`} className={styles.pagLink}>
+                <span className={styles.pagDir}>← Previous</span>
+                <span className={styles.pagTitle}>{prev.title}</span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <Link href={`/work/${next.slug}`} className={`${styles.pagLink} ${styles.pagNext}`}>
+                <span className={styles.pagDir}>Next →</span>
+                <span className={styles.pagTitle}>{next.title}</span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </div>
+        </div>
+      </nav>
     </div>
   );
 }
