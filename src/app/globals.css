@@ -8,7 +8,8 @@
 
 /* Fonts are loaded via next/font in layout.tsx (self-hosted, no
    render-blocking @import) and exposed as CSS variables:
-   --font-geist-sans, --font-geist-mono. */
+   --font-space-grotesk (display), --font-inter (body),
+   --font-space-mono (labels). */
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
@@ -51,10 +52,12 @@
   --onyx-border: rgba(226, 233, 255, 0.1);
   --onyx-border-strong: rgba(226, 233, 255, 0.18);
 
-  /* Type families */
-  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: var(--font-geist-sans), -apple-system, sans-serif; /* serif retired */
-  --font-mono: var(--font-geist-mono), 'SF Mono', ui-monospace, 'JetBrains Mono', monospace;
+  /* Type families — Space Grotesk carries the voice (headings, display,
+     buttons, big numerals); Inter stays on long-form body for legibility. */
+  --font-display: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-space-grotesk), -apple-system, sans-serif; /* serif retired */
+  --font-mono: var(--font-space-mono), 'SF Mono', ui-monospace, 'JetBrains Mono', monospace;
 
   /* Radius — soft, Apple-adjacent */
   --radius-sm: 8px;
@@ -181,9 +184,10 @@ body {
 
 /* ── Typography Scale ──────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.04;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.022em;
   color: var(--text-primary);
   text-wrap: balance;
 }
@@ -219,20 +223,23 @@ h6 { font-size: 15px; letter-spacing: 0; }
 
 /* Display sizes — confident, tight, Apple-calibre */
 .display-mega {
+  font-family: var(--font-display);
   font-size: clamp(48px, 8vw, 132px);
   font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 0.96;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
 }
 
 .display {
-  font-size: clamp(38px, 4.9vw, 76px);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.4vw, 68px);
   font-weight: 600;
-  letter-spacing: -0.032em;
-  line-height: 1.02;
+  letter-spacing: -0.026em;
+  line-height: 1.04;
 }
 
 .heading-xl {
+  font-family: var(--font-display);
   font-size: clamp(26px, 2.8vw, 40px);
   font-weight: 600;
   letter-spacing: -0.022em;
@@ -240,6 +247,7 @@ h6 { font-size: 15px; letter-spacing: 0; }
 }
 
 .heading-lg {
+  font-family: var(--font-display);
   font-size: clamp(22px, 2vw, 30px);
   font-weight: 600;
   letter-spacing: -0.016em;
@@ -247,6 +255,7 @@ h6 { font-size: 15px; letter-spacing: 0; }
 }
 
 .heading-md {
+  font-family: var(--font-display);
   font-size: clamp(18px, 1.8vw, 24px);
   font-weight: 600;
   letter-spacing: -0.012em;
@@ -315,7 +324,7 @@ a {
   border-radius: var(--radius-btn);
   font-size: 13px;
   font-weight: 600;
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   letter-spacing: 0.01em;
   cursor: pointer;
   border: none;

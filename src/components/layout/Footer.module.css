@@ -29,6 +29,7 @@
 }
 
 .ctaTitle {
+  font-family: var(--font-display);
   font-size: clamp(28px, 4vw, 56px);
   font-weight: 600;
   letter-spacing: -0.03em;
