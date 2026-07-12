@@ -1,0 +1,63 @@
+/* Onyx curtain — the logo-on-black moment before the ivory page reveals. */
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  background: var(--onyx);
+  display: flex;
+  align-items: flex-end;
+  visibility: hidden;
+  will-change: transform;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad) clamp(40px, 7vw, 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wordmarkMask {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.wordmark {
+  display: flex;
+  will-change: transform;
+}
+
+/* The real logo — screen-blend melts its black canvas into the curtain. */
+.wordmarkImg {
+  width: clamp(220px, 30vw, 420px);
+  height: auto;
+  mix-blend-mode: screen;
+}
+
+.meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid var(--onyx-border);
+  padding-top: 18px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--onyx-text-muted);
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 500;
+  color: var(--accent-bright);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}

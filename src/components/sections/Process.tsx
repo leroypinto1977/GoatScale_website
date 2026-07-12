@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import Reveal from '@/components/ui/Reveal';
 import styles from './Process.module.css';
 
 const steps = [
@@ -38,18 +39,18 @@ function ProcessStep({ step }: { step: typeof steps[0] }) {
     offset: ["start center", "end center"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.58, 1, 1, 0.58]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.98, 1, 1, 0.98]);
   const numberColor = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    ["rgba(183, 231, 161, 0.15)", "rgba(183, 231, 161, 1)", "rgba(183, 231, 161, 1)", "rgba(183, 231, 161, 0.15)"]
+    ["rgba(158, 122, 54, 0.18)", "rgba(158, 122, 54, 1)", "rgba(158, 122, 54, 1)", "rgba(158, 122, 54, 0.18)"]
   );
 
   return (
     <motion.div
       ref={ref}
-      style={{ opacity, scale }}
+      style={{ opacity, scale, position: 'relative' }}
       className={styles.step}
     >
       {/* Giant number */}
@@ -88,10 +89,10 @@ export default function Process() {
         <div className={styles.layout}>
           {/* Sticky Header Left */}
           <div className={styles.header}>
-            <span className="label">How We Work</span>
-            <h2 className={`display ${styles.title}`}>
+            <span className="label"><i />How We Work</span>
+            <Reveal as="h2" split="lines" className={`display ${styles.title}`}>
               A process built<br />for <span className={styles.boldAccent}>outcomes.</span>
-            </h2>
+            </Reveal>
 
             <div className={styles.headerExtra}>
               <p className={styles.headerDesc}>

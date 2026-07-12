@@ -1,0 +1,155 @@
+/* ============================================================
+   FAQ — Ivory & Onyx accordion.
+   ============================================================ */
+
+.page {
+  padding-top: 40px;
+}
+
+.hero {
+  padding-bottom: clamp(32px, 4vw, 56px);
+}
+
+.title {
+  font-size: clamp(40px, 5vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  margin: 18px 0 22px;
+}
+
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.sub {
+  max-width: 560px;
+}
+
+.inlineLink {
+  color: var(--accent-ink);
+  border-bottom: 1px solid var(--border-hover);
+  transition: color var(--transition-fast);
+}
+.inlineLink:hover {
+  color: var(--accent);
+}
+
+/* ── List ─────────────────────────────────────────────────── */
+.listSection {
+  padding-bottom: var(--section-padding);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 880px;
+}
+
+.item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.15)),
+    var(--surface);
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.item:hover {
+  border-color: var(--border-strong);
+}
+
+.itemOpen {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-1);
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: clamp(18px, 2vw, 24px) clamp(18px, 2.4vw, 28px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-sans);
+}
+
+.qNum {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--accent-ink);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.qText {
+  font-size: clamp(15.5px, 1.3vw, 18px);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.qIcon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  color: var(--accent-ink);
+  background: rgba(24, 20, 11, 0.02);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.itemOpen .qIcon {
+  background: var(--accent-soft);
+  border-color: var(--border-hover);
+}
+
+.answerWrap {
+  overflow: hidden;
+}
+
+.answer {
+  padding: 0 clamp(18px, 2.4vw, 28px) clamp(20px, 2.2vw, 26px);
+  margin-left: calc(18px + clamp(11px, 1vw, 13px) + 8px);
+  font-size: 15px;
+  line-height: 1.78;
+  color: var(--text-secondary);
+  max-width: 62ch;
+}
+
+/* ── Footer CTA ───────────────────────────────────────────── */
+.footerCta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: clamp(28px, 3vw, 40px);
+  border-top: 1px solid var(--border);
+}
+
+.footerCtaText {
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .answer {
+    margin-left: 0;
+  }
+}

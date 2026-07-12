@@ -1,38 +1,42 @@
 .marqueeWrapper {
-  background: var(--accent) !important;
-  padding: 10px 0 !important;
+  background: var(--surface) !important;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0 !important;
   overflow: hidden;
   display: flex;
   position: relative;
   width: 100%;
+  box-shadow: inset 0 1px 0 rgba(74, 58, 26, 0.12);
 }
 
 .track {
   display: flex;
   white-space: nowrap;
   gap: 60px; /* Precise gap between all elements */
-  animation: scroll 40s linear infinite;
   width: max-content;
   align-items: center;
+  will-change: transform;
 }
 
 .item {
   display: flex;
   align-items: center;
   gap: 60px; /* This gap is between the text and the dot inside the item */
-  color: var(--bg) !important;
-  font-size: 13px;
-  letter-spacing: 0.15em;
+  color: var(--text-secondary) !important;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .dot {
   width: 4px;
   height: 4px;
-  background: var(--bg);
+  background: var(--accent);
   border-radius: 50%;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 @keyframes scroll {
@@ -42,7 +46,7 @@
 
 @media (max-width: 768px) {
   .marqueeWrapper {
-    padding: 8px 0 !important;
+    padding: 14px 0 !important;
   }
   .item {
     font-size: 11px;

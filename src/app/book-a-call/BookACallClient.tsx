@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { EASE_OUT, viewportOnce } from '@/lib/motion';
 import styles from './page.module.css';
+
+const EXPECTATIONS = [
+  { num: '01', title: 'Technical Review', body: "We'll dive into your current tech stack and identify immediate bottlenecks." },
+  { num: '02', title: 'Strategic Roadmap', body: 'Get a high-level plan of how we would approach your specific scaling challenges.' },
+  { num: '03', title: 'Direct Access', body: 'Talk directly with our lead engineers and designers. No gatekeepers.' },
+];
 
 export default function BookACallPage() {
   // Set NEXT_PUBLIC_CALENDLY_URL (or any scheduler embed URL) to embed a live
@@ -26,7 +33,7 @@ export default function BookACallPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="label">Scheduler</span>
+            <span className="label"><i />Scheduler</span>
             <h1 className={styles.title}>Book a discovery <span className={styles.accent}>call.</span></h1>
             <p className={styles.subtitle}>
               Pick a time that works for you. No sales pressure — just a conversation 
@@ -81,21 +88,20 @@ export default function BookACallPage() {
         {/* Expectation Cards */}
         <section className={styles.expectations}>
           <div className={styles.expectationGrid}>
-            <div className={styles.expectationCard}>
-              <span className={styles.cardNumber}>01</span>
-              <h4>Technical Review</h4>
-              <p>We&apos;ll dive into your current tech stack and identify immediate bottlenecks.</p>
-            </div>
-            <div className={styles.expectationCard}>
-              <span className={styles.cardNumber}>02</span>
-              <h4>Strategic Roadmap</h4>
-              <p>Get a high-level plan of how we would approach your specific scaling challenges.</p>
-            </div>
-            <div className={styles.expectationCard}>
-              <span className={styles.cardNumber}>03</span>
-              <h4>Direct Access</h4>
-              <p>Talk directly with our lead engineers and designers. No gatekeepers.</p>
-            </div>
+            {EXPECTATIONS.map((card, i) => (
+              <motion.div
+                key={card.num}
+                className={styles.expectationCard}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewportOnce}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: EASE_OUT }}
+              >
+                <span className={styles.cardNumber}>{card.num}</span>
+                <h4>{card.title}</h4>
+                <p>{card.body}</p>
+              </motion.div>
+            ))}
           </div>
         </section>
       </div>

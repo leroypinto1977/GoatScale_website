@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/lib/projects';
 import type { Project } from '@/lib/projects';
+import Reveal from '@/components/ui/Reveal';
+import { EASE_OUT } from '@/lib/motion';
 import styles from './page.module.css';
 
 // Derive filters from the actual project data so we never render a tab
@@ -29,6 +31,7 @@ function WorkCard({ project, index }: { project: Project; index: number }) {
             src={project.thumbnail}
             alt={project.title}
             fill
+            priority={index < 4}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={styles.image}
           />
@@ -68,20 +71,26 @@ export default function WorkPage() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
+          <motion.span
+            className="label"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
           >
-            <span className="label">Our Work</span>
-            <h1 className={styles.heroTitle}>
-              Every project,<br />
-              <span className={styles.accent}>built to last.</span>
-            </h1>
-            <p className={styles.heroSub}>
-              {projects.length} projects shipped across web, mobile, and internal systems.
-            </p>
-          </motion.div>
+            <i />Our Work
+          </motion.span>
+          <Reveal as="h1" split="lines" className={styles.heroTitle} delay={0.15}>
+            Every project,<br />
+            <span className={styles.accent}>built to last.</span>
+          </Reveal>
+          <motion.p
+            className={styles.heroSub}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
+          >
+            {projects.length} projects shipped across web, mobile, and internal systems.
+          </motion.p>
         </div>
       </section>
 

@@ -209,7 +209,10 @@
 }
 
 .typeIcon {
-  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
 }
 
 /* Two column */
@@ -344,8 +347,16 @@
 }
 
 .infoMeta span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   font-size: 13px;
   color: var(--text-secondary);
+}
+
+.infoMeta span svg {
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 /* Success State */
@@ -418,5 +429,5 @@
 .formError {
   margin-top: 14px;
   font-size: 13px;
-  color: #ff8f8f;
+  color: #B3382C;
 }

@@ -1,0 +1,335 @@
+/* ============================================================
+   Service pillar page — Ivory & Onyx editorial layout.
+   ============================================================ */
+
+.page {
+  padding-top: 40px;
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+  padding-bottom: clamp(40px, 5vw, 72px);
+}
+
+.heroTitle {
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  margin: 20px 0 26px;
+  max-width: 16ch;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 0.52em;
+  margin-bottom: 10px;
+  letter-spacing: 0;
+}
+
+.tagline {
+  max-width: 620px;
+}
+
+.ctas {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+/* ── Offerings ────────────────────────────────────────────── */
+.offerings {
+  padding-top: 0;
+}
+
+.offeringList {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+  margin-top: 26px;
+}
+
+.offeringRow {
+  display: grid;
+  grid-template-columns: 64px minmax(220px, 0.7fr) 1fr;
+  gap: clamp(20px, 3.5vw, 56px);
+  align-items: start;
+  padding: clamp(26px, 3.4vw, 44px) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.offeringNum {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-ink);
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  padding-top: 6px;
+}
+
+.offeringName {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.offeringDesc {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 520px;
+}
+
+/* ── Outcomes + Fit cards ─────────────────────────────────── */
+.value {
+  padding-top: 0;
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.valueCard {
+  padding: clamp(28px, 3vw, 40px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.2)),
+    var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.valueCardAlt {
+  background:
+    linear-gradient(180deg, rgba(158, 122, 54, 0.09), rgba(255, 255, 255, 0.4)),
+    var(--surface);
+  border-color: var(--border-hover);
+}
+
+.valueHeading {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+
+.valueList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.valueList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  margin-top: 1px;
+}
+
+/* ── Related work ─────────────────────────────────────────── */
+.related {
+  padding-top: 0;
+}
+
+.relatedTitle {
+  margin: 14px 0 36px;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.relatedCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.relatedCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.relatedImageWrap {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.relatedImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.relatedCard:hover .relatedImage {
+  transform: scale(1.04);
+}
+
+.relatedBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(20px, 2.4vw, 30px);
+}
+
+.relatedMeta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.relatedName {
+  font-size: clamp(19px, 1.8vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.relatedSummary {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.relatedCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+/* ── Other pillars ────────────────────────────────────────── */
+.others {
+  padding-top: 0;
+}
+
+.othersGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.otherCard {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: clamp(22px, 2.4vw, 32px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgba(24, 20, 11, 0.02);
+  transition: border-color var(--transition-base), background var(--transition-base),
+    transform var(--transition-base);
+}
+
+.otherCard:hover {
+  border-color: var(--border-hover);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+
+.otherKicker {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(18px, 1.7vw, 24px);
+  color: var(--accent);
+}
+
+.otherTitle {
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+.otherArrow {
+  margin-left: auto;
+  color: var(--accent-ink);
+}
+
+/* ── CTA band ─────────────────────────────────────────────── */
+.ctaBand {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background:
+    radial-gradient(70% 120% at 50% 0%, rgba(158, 122, 54, 0.12), transparent 60%),
+    var(--bg-soft);
+  border-top: 1px solid var(--border);
+}
+
+.ctaInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.ctaTitle {
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.ctaSub {
+  font-size: 15.5px;
+  color: var(--text-secondary);
+  max-width: 46ch;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .offeringRow {
+    grid-template-columns: 48px 1fr;
+  }
+  .offeringDesc {
+    grid-column: 2;
+    max-width: none;
+  }
+  .valueGrid,
+  .relatedGrid,
+  .othersGrid {
+    grid-template-columns: 1fr;
+  }
+}

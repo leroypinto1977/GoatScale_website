@@ -5,8 +5,8 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: clamp(64px, 8vw, 120px);
   align-items: start;
 }
 
@@ -19,8 +19,8 @@
 }
 
 .title {
-  max-width: 500px;
-  font-weight: 600;
+  max-width: 620px;
+  font-weight: 560;
 }
 
 .boldAccent {
@@ -45,8 +45,8 @@
 }
 
 .headerDesc {
-  font-size: 15px; /* Shrunk */
-  line-height: 1.7;
+  font-size: 15.5px;
+  line-height: 1.78;
   color: var(--text-secondary);
 }
 
@@ -65,7 +65,7 @@
   gap: 12px;
   font-size: 11px; /* Smaller label style */
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -79,7 +79,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-left: 64px;
+  padding-left: clamp(34px, 4vw, 58px);
 }
 
 /* Progress Line */
@@ -89,7 +89,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: var(--border);
+  background: rgba(24, 20, 11, 0.12);
 }
 
 .progressLineActive {
@@ -98,16 +98,48 @@
   top: 0;
   width: 1px;
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(180deg, transparent, var(--accent), transparent);
 }
 
 /* Step Card */
 .step {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 16px;
-  padding: 40px 0;
+  gap: 14px;
+  padding: clamp(34px, 4vw, 56px) 0;
+  cursor: default;
+}
+
+/* Node dot sitting on the progress rail, aligned to each step */
+.step::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * clamp(38px, 4vw, 62px));
+  top: clamp(42px, 4.5vw, 64px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  transition: background var(--transition-base), border-color var(--transition-base),
+    box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.step:hover::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 0 12px var(--accent-glow);
+  transform: scale(1.15);
+}
+
+.step:hover .stepContent {
+  transform: translateX(4px);
+}
+
+.step:hover .stepTitle {
+  color: var(--accent);
 }
 
 .step:last-child {
@@ -119,13 +151,17 @@
   padding-top: 0;
 }
 
+.step:first-child::before {
+  top: 10px;
+}
+
 /* Giant Number */
 .bigNumber {
-  font-size: clamp(48px, 4.5vw, 80px); /* Premium downscale */
-  font-weight: 900;
+  font-size: clamp(42px, 4vw, 70px);
+  font-weight: 620;
   letter-spacing: -0.05em;
   line-height: 1;
-  color: var(--border);
+  color: rgba(23, 19, 7, 0.12);
   user-select: none;
 }
 
@@ -134,20 +170,23 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: transform var(--transition-base);
 }
 
 .stepTitle {
-  font-size: clamp(20px, 2.2vw, 28px); /* Shrunk */
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: clamp(23px, 2.2vw, 32px);
+  font-weight: 560;
+  letter-spacing: -0.035em;
   color: var(--text-primary);
   margin: 0;
+  transition: color var(--transition-base);
 }
 
 .stepDesc {
-  font-size: 14px; /* Precision size */
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.78;
   color: var(--text-secondary);
+  max-width: 620px;
 }
 
 @media (max-width: 992px) {
@@ -165,5 +204,8 @@
   .step {
     min-height: auto;
     padding: 40px 0;
+  }
+  .step::before {
+    left: -44px;
   }
 }

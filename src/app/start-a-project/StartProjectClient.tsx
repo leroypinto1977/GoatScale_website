@@ -11,13 +11,28 @@ const BUDGET_OPTIONS = ['Under ₹50K','₹50K – ₹1L','₹1L – ₹5L','₹
 const TIMELINE_OPTIONS = ['ASAP','1–2 months','3–6 months','6+ months','Flexible'];
 const HOW_OPTIONS = ['Google / Search','Referred by someone','LinkedIn','Instagram','Word of mouth','Other'];
 const PROJECT_TYPES = [
-  { id: 'web', label: 'Web App', icon: '🌐' },
-  { id: 'mobile', label: 'Mobile App', icon: '📱' },
-  { id: 'website', label: 'Website', icon: '✦' },
-  { id: 'system', label: 'Internal System', icon: '⚙️' },
-  { id: 'branding', label: 'Branding', icon: '✶' },
-  { id: 'strategy', label: 'Strategy', icon: '💡' },
+  { id: 'website', label: 'Website / Landing Page' },
+  { id: 'web', label: 'Web App' },
+  { id: 'mobile', label: 'Mobile App' },
+  { id: 'system', label: 'CRM / ERP System' },
+  { id: 'automation', label: 'Internal Tools & Automation' },
+  { id: 'transformation', label: 'Digital Transformation' },
 ];
+
+const svg = (paths: React.ReactNode) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    {paths}
+  </svg>
+);
+
+const TYPE_ICONS: Record<string, React.ReactNode> = {
+  web: svg(<><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" /></>),
+  mobile: svg(<><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M11 18h2" /></>),
+  website: svg(<><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M7 6.5h.01M10 6.5h.01" /></>),
+  system: svg(<><rect x="3" y="4" width="18" height="6" rx="1.5" /><rect x="3" y="14" width="18" height="6" rx="1.5" /><path d="M7 7h.01M7 17h.01" /></>),
+  automation: svg(<path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />),
+  transformation: svg(<><path d="M4 17l5-5-5-5M12 19h8M12 5h8M12 12h4" /></>),
+};
 
 const slideV = {
   enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
@@ -31,10 +46,11 @@ export default function StartAProjectPage() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [form, setForm] = useState({ name:'', company:'', email:'', phone:'', projectType:'', budget:'', timeline:'', brief:'', how:'' });
+  const [form, setForm] = useState({ name:'', company:'', email:'', phone:'', projectType:'', budget:'', timeline:'', brief:'', how:'', companyWebsite:'' });
 
   const set = (k: keyof typeof form, v: string) => setForm(p => ({ ...p, [k]: v }));
   const goTo = (next: Step) => { setDir(next > step ? 1 : -1); setStep(next); };
+  const hasValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
 
   const submitBrief = async () => {
     setSending(true);
@@ -81,7 +97,7 @@ export default function StartAProjectPage() {
       <div className={styles.layout}>
         <div className={styles.formSide}>
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className={styles.formHeader}>
-            <span className="label">Let&apos;s Work Together</span>
+            <span className="label"><i />Let&apos;s Work Together</span>
             <h1 className={styles.pageTitle}>Let&apos;s build<br /><span className={styles.accent}>something great.</span></h1>
           </motion.div>
 
@@ -93,17 +109,21 @@ export default function StartAProjectPage() {
           </div>
 
           <form className={styles.form} onSubmit={e => e.preventDefault()}>
+            <div className="hp-field" aria-hidden="true">
+              <label htmlFor="sp-company-website">Company website</label>
+              <input id="sp-company-website" name="companyWebsite" type="text" tabIndex={-1} autoComplete="off" value={form.companyWebsite} onChange={e => set('companyWebsite', e.target.value)} />
+            </div>
             <AnimatePresence mode="wait" custom={dir}>
               {step === 1 && (
                 <motion.div key="s1" custom={dir} variants={slideV} initial="enter" animate="center" exit="exit" transition={{ duration: 0.35, ease:[0.16,1,0.3,1] }} className={styles.stepContent}>
                   <h2 className={styles.stepTitle}>About you</h2>
                   <div className={styles.fieldGroup}>
-                    <div className={styles.field}><label className={styles.label} htmlFor="sp-name">Your Name *</label><input id="sp-name" name="name" className={styles.input} type="text" placeholder="Alex Johnson" value={form.name} onChange={e => set('name', e.target.value)} /></div>
-                    <div className={styles.field}><label className={styles.label} htmlFor="sp-company">Company</label><input id="sp-company" name="company" className={styles.input} type="text" placeholder="Acme Inc. (optional)" value={form.company} onChange={e => set('company', e.target.value)} /></div>
-                    <div className={styles.field}><label className={styles.label} htmlFor="sp-email">Email *</label><input id="sp-email" name="email" className={styles.input} type="email" placeholder="alex@company.com" value={form.email} onChange={e => set('email', e.target.value)} /></div>
-                    <div className={styles.field}><label className={styles.label} htmlFor="sp-phone">Phone (optional)</label><input id="sp-phone" name="phone" className={styles.input} type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => set('phone', e.target.value)} /></div>
+                    <div className={styles.field}><label className={styles.label} htmlFor="sp-name">Your Name *</label><input id="sp-name" name="name" className={styles.input} type="text" placeholder="Alex Johnson" value={form.name} onChange={e => set('name', e.target.value)} maxLength={120} autoComplete="name" required /></div>
+                    <div className={styles.field}><label className={styles.label} htmlFor="sp-company">Company</label><input id="sp-company" name="company" className={styles.input} type="text" placeholder="Acme Inc. (optional)" value={form.company} onChange={e => set('company', e.target.value)} maxLength={200} autoComplete="organization" /></div>
+                    <div className={styles.field}><label className={styles.label} htmlFor="sp-email">Email *</label><input id="sp-email" name="email" className={styles.input} type="email" placeholder="alex@company.com" value={form.email} onChange={e => set('email', e.target.value)} maxLength={254} autoComplete="email" required /></div>
+                    <div className={styles.field}><label className={styles.label} htmlFor="sp-phone">Phone (optional)</label><input id="sp-phone" name="phone" className={styles.input} type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={e => set('phone', e.target.value)} maxLength={40} autoComplete="tel" /></div>
                   </div>
-                  <button type="button" className="btn btn-primary" disabled={!form.name || !form.email} onClick={() => goTo(2)}>Next: Your Project →</button>
+                  <button type="button" className="btn btn-primary" disabled={!form.name.trim() || !hasValidEmail} onClick={() => goTo(2)}>Next: Your Project →</button>
                 </motion.div>
               )}
               {step === 2 && (
@@ -114,7 +134,7 @@ export default function StartAProjectPage() {
                     <div className={styles.typeGrid}>
                       {PROJECT_TYPES.map(t => (
                         <button key={t.id} type="button" aria-pressed={form.projectType === t.id} className={`${styles.typeCard} ${form.projectType === t.id ? styles.typeActive : ''}`} onClick={() => set('projectType', t.id)}>
-                          <span className={styles.typeIcon} aria-hidden="true">{t.icon}</span><span>{t.label}</span>
+                          <span className={styles.typeIcon} aria-hidden="true">{TYPE_ICONS[t.id]}</span><span>{t.label}</span>
                         </button>
                       ))}
                     </div>
@@ -132,11 +152,11 @@ export default function StartAProjectPage() {
               {step === 3 && (
                 <motion.div key="s3" custom={dir} variants={slideV} initial="enter" animate="center" exit="exit" transition={{ duration: 0.35, ease:[0.16,1,0.3,1] }} className={styles.stepContent}>
                   <h2 className={styles.stepTitle}>Tell us more</h2>
-                  <div className={styles.field}><label className={styles.label} htmlFor="sp-brief">Describe your project *</label><textarea id="sp-brief" name="brief" className={styles.textarea} rows={5} placeholder="What problem are you solving? Who are your users? Any references you love?" value={form.brief} onChange={e => set('brief', e.target.value)} /></div>
+                  <div className={styles.field}><label className={styles.label} htmlFor="sp-brief">Describe your project *</label><textarea id="sp-brief" name="brief" className={styles.textarea} rows={5} placeholder="What problem are you solving? Who are your users? Any references you love?" value={form.brief} onChange={e => set('brief', e.target.value)} minLength={10} maxLength={8000} required /></div>
                   <div className={styles.field}><label className={styles.label} htmlFor="sp-how">How did you find us?</label><select id="sp-how" name="how" className={styles.select} value={form.how} onChange={e => set('how', e.target.value)}><option value="">Select one</option>{HOW_OPTIONS.map(h => <option key={h} value={h}>{h}</option>)}</select></div>
                   <div className={styles.btnRow}>
                     <button type="button" className="btn btn-secondary" onClick={() => goTo(2)}>← Back</button>
-                    <button type="button" className="btn btn-primary" disabled={!form.brief} onClick={() => goTo(4)}>Review & Send →</button>
+                    <button type="button" className="btn btn-primary" disabled={form.brief.trim().length < 10} onClick={() => goTo(4)}>Review & Send →</button>
                   </div>
                 </motion.div>
               )}
@@ -162,7 +182,7 @@ export default function StartAProjectPage() {
                   <div className={styles.btnRow}>
                     <button type="button" className="btn btn-secondary" onClick={() => goTo(3)} disabled={sending}>← Edit</button>
                     <button type="button" className="btn btn-primary" onClick={submitBrief} disabled={sending}>
-                      {sending ? 'Sending…' : 'Send Brief ✓'}
+                      {sending ? 'Sending…' : 'Send Brief'}
                     </button>
                   </div>
                   {errorMsg && (
@@ -195,8 +215,18 @@ export default function StartAProjectPage() {
               <p className={styles.quoteAuthor}>— Ravi K., LogiTrack</p>
             </div>
             <div className={styles.infoMeta}>
-              <span><span aria-hidden="true">⚡</span> Response within 24 hours</span>
-              <span><span aria-hidden="true">🔒</span> Brief stays confidential</span>
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                </svg>
+                Response within 24 hours
+              </span>
+              <span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+                Brief stays confidential
+              </span>
             </div>
           </motion.div>
         </div>

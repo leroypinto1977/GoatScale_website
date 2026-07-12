@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Goat Scale — Build Systems. Scale Fast.';
+export const alt = 'Goat Scale — Launch. Operate. Transform.';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -14,23 +14,28 @@ export default function OpengraphImage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#060906',
-          color: '#EAE4D6',
+          background: '#0B0A07',
+          color: '#F4EFE3',
           padding: '80px',
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ fontSize: 32, fontWeight: 800, letterSpacing: '0.04em' }}>
+            GOAT
+          </div>
           <div
             style={{
-              width: 14,
-              height: 14,
-              borderRadius: 999,
-              background: '#B7E7A1',
+              fontSize: 16,
+              fontWeight: 700,
+              letterSpacing: '0.3em',
+              color: '#14100A',
+              background: 'linear-gradient(135deg, #C9A45C, #9E7A36 60%, #6E5423)',
+              borderRadius: 8,
+              padding: '8px 12px',
             }}
-          />
-          <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-0.01em' }}>
-            Goat Scale
+          >
+            SCALE
           </div>
         </div>
 
@@ -51,15 +56,15 @@ export default function OpengraphImage() {
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
-              color: '#B7E7A1',
+              color: '#C9A45C',
             }}
           >
             that let you scale.
           </div>
         </div>
 
-        <div style={{ fontSize: 26, color: 'rgba(234,228,214,0.7)' }}>
-          Websites · Web apps · Mobile · Internal systems
+        <div style={{ fontSize: 26, color: 'rgba(244,239,227,0.7)' }}>
+          Websites · Web & mobile apps · CRM & ERP · Digital transformation
         </div>
       </div>
     ),

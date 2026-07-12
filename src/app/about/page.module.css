@@ -179,7 +179,7 @@
   font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: var(--bg);
+  color: #14100A;
 }
 
 .tickerLabel {
@@ -187,7 +187,7 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(6, 9, 6, 0.7); /* var(--bg) with opacity */
+  color: rgba(20, 16, 10, 0.72); /* ink on the gold band */
 }
 
 .tickerDot {
@@ -241,9 +241,10 @@
   flex-direction: column;
 }
 
-/* Staggered Offset for Editorial Look */
+/* Staggered Offset for Editorial Look — fluid so it scales between
+   breakpoints instead of snapping from 240px to 0. */
 .memberColumn:nth-child(2) {
-  margin-top: 240px;
+  margin-top: clamp(80px, 18vw, 240px);
 }
 
 .mainPortraitWrap {
@@ -252,7 +253,7 @@
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 40px 100px -30px rgba(74, 58, 26, 0.45);
 }
 
 .mainPortrait {

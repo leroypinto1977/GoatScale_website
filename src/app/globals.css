@@ -1,48 +1,98 @@
 /* ============================================================
-   GOAT SCALE — Global Design System (Light Luxe)
+   GOAT SCALE — Global Design System  ·  "Ivory & Onyx"
+   Warm ivory paper · ink typography · signature logo gold ·
+   onyx anchor moments (preloader, code window, footer).
+   Utility class names are preserved so existing markup keeps
+   working.
    ============================================================ */
 
 /* Fonts are loaded via next/font in layout.tsx (self-hosted, no
-   render-blocking @import). They are exposed as the CSS variables
-   --font-inter and --font-instrument-serif. */
+   render-blocking @import) and exposed as CSS variables:
+   --font-inter, --font-instrument-serif, --font-mono. */
 
 /* ── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --bg: #060906;
-  --surface: #121612;
-  --surface-2: #1A1F1A;
+  /* Surfaces — warm ivory paper. Gold is the brand accent, onyx the anchor. */
+  --bg: #F6F1E6;
+  --bg-soft: #EFE8D8;
+  --surface: #FCFAF3;
+  --surface-2: #F1EADB;
+  --surface-3: #E7DDC7;
 
-  --border: rgba(234, 228, 214, 0.1);
-  --border-hover: #EAE4D6;
+  /* Borders */
+  --border: rgba(24, 20, 11, 0.1);
+  --border-strong: rgba(24, 20, 11, 0.18);
+  --border-hover: rgba(158, 122, 54, 0.55);
 
-  --accent: #B7E7A1;
-  --accent-soft: rgba(183, 231, 161, 0.1);
+  /* Accent — the logo gold */
+  --accent: #9E7A36;
+  --accent-bright: #C9A45C;
+  --accent-deep: #6E5423;
+  /* Darkened gold for small text — clears WCAG AA on ivory. */
+  --accent-ink: #7C5F27;
+  --accent-soft: rgba(158, 122, 54, 0.1);
+  --accent-glow: rgba(158, 122, 54, 0.24);
 
-  --text-primary: #EAE4D6;
-  --text-secondary: rgba(234, 228, 214, 0.82);
-  /* Bumped from 0.5 → 0.68 so small (10–13px) muted text clears
-     WCAG AA contrast on the near-black background. */
-  --text-muted: rgba(234, 228, 214, 0.68);
+  /* Text — warm ink */
+  --text-primary: #171307;
+  --text-secondary: rgba(23, 19, 7, 0.72);
+  /* Kept ≥0.55 so small (10–13px) muted text clears WCAG AA on ivory. */
+  --text-muted: rgba(23, 19, 7, 0.55);
 
+  /* Onyx — the logo-black anchor palette (preloader, code window, footer) */
+  --onyx: #0B0A07;
+  --onyx-soft: #14120C;
+  --onyx-2: #1B1810;
+  --onyx-text: #F4EFE3;
+  --onyx-text-secondary: rgba(244, 239, 227, 0.72);
+  --onyx-text-muted: rgba(244, 239, 227, 0.55);
+  --onyx-border: rgba(244, 239, 227, 0.12);
+  --onyx-border-strong: rgba(244, 239, 227, 0.2);
+
+  /* Type families */
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: var(--font-instrument-serif), 'Instrument Serif', serif;
+  --font-serif: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-mono: var(--font-mono), 'SF Mono', ui-monospace, 'JetBrains Mono', monospace;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* Radius — buttons/chips echo the rounded logo badge, not full pills */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 34px;
+  --radius-full: 999px;
+  --radius-btn: 12px;
 
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.25s ease;
-  --transition-slow: 0.5s ease;
+  /* Elevation — warm, soft paper shadows */
+  --shadow-1: 0 18px 50px -30px rgba(74, 58, 26, 0.25);
+  --shadow-2: 0 34px 80px -42px rgba(74, 58, 26, 0.32);
+  --shadow-card-hover: 0 34px 80px -44px rgba(74, 58, 26, 0.38), 0 0 0 1px var(--border-hover);
 
-  --section-padding: clamp(40px, 5vw, 64px);
-  --container-max: 1600px;
-  --container-pad: clamp(24px, 5vw, 80px);
+  /* Motion — shared rhythm (mirrored in src/lib/motion.ts) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: 0.18s var(--ease-out);
+  --transition-base: 0.32s var(--ease-out);
+  --transition-slow: 0.6s var(--ease-out);
+
+  /* Spacing rhythm (8pt) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 128px;
+
+  /* Layout — generous, editorial breathing room */
+  --section-padding: clamp(88px, 10vw, 176px);
+  --container-max: 1380px;
+  --container-pad: clamp(22px, 5vw, 80px);
 }
 
 /* ── Premium Atmosphere ────────────────────────────────────── */
 
-/* Film Grain Overlay */
+/* Paper grain overlay */
 body::before {
   content: "";
   position: fixed;
@@ -52,32 +102,29 @@ body::before {
   z-index: 9999;
   pointer-events: none;
   background-image: url("/noise.svg");
-  filter: contrast(150%) brightness(1000%);
-  opacity: 0.035;
-  mix-blend-mode: overlay;
+  filter: contrast(120%) brightness(120%);
+  opacity: 0.03;
+  mix-blend-mode: multiply;
 }
 
-/* Deep Atmosphere Glows */
+/* Section depth glow — a faint gold wash */
 .section {
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle glow behind every section for depth */
 .section::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vw;
-  background: radial-gradient(circle,
-      var(--accent-soft) 0%,
-      transparent 70%);
-  filter: blur(120px);
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(158, 122, 54, 0.06) 0%, transparent 70%);
+  filter: blur(150px);
   z-index: -1;
-  opacity: 0.4;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -91,6 +138,7 @@ body::before {
 }
 
 html {
+  position: relative;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -98,14 +146,22 @@ html {
 }
 
 body {
-  background-color: var(--bg);
+  background:
+    radial-gradient(85% 65% at 50% -12%, rgba(158, 122, 54, 0.07), transparent 58%),
+    radial-gradient(55% 45% at 100% 8%, rgba(201, 164, 92, 0.08), transparent 64%),
+    linear-gradient(180deg, #F8F4EA 0%, #F4EEDF 48%, #F6F1E6 100%);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 15px;
-  /* Shrunk for premium feel */
+  font-size: 16px;
   line-height: 1.7;
   overflow-x: hidden;
   position: relative;
+  font-feature-settings: 'ss01', 'cv01', 'cv11';
+}
+
+::selection {
+  background: var(--accent);
+  color: #FCFAF3;
 }
 
 /* ── Scroll Progress Bar ───────────────────────────────────── */
@@ -114,55 +170,39 @@ body {
   top: 0;
   left: 0;
   height: 2px;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--accent-bright));
   z-index: 10000;
   width: 0%;
   transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* ── Typography Scale ──────────────────────────────────────── */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
   color: var(--text-primary);
+  text-wrap: balance;
 }
 
-/* Real size hierarchy so heading level maps to visual weight.
-   Utility classes (.display, .heading-xl, etc.) can still override. */
-h1 {
-  font-size: clamp(32px, 3.5vw, 48px);
-}
-
-h2 {
-  font-size: clamp(28px, 2.8vw, 40px);
-}
-
+h1 { font-size: clamp(34px, 4vw, 56px); }
+h2 { font-size: clamp(30px, 3.2vw, 46px); }
 h3 {
-  font-size: clamp(22px, 2vw, 30px);
-  letter-spacing: -0.015em;
+  font-size: clamp(22px, 2.1vw, 32px);
+  letter-spacing: -0.018em;
 }
-
 h4 {
   font-size: clamp(18px, 1.6vw, 22px);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 }
-
 h5 {
   font-size: clamp(16px, 1.3vw, 18px);
   letter-spacing: -0.01em;
 }
+h6 { font-size: 15px; letter-spacing: 0; }
 
-h6 {
-  font-size: 15px;
-  letter-spacing: 0;
-}
-
+/* Serif italic emphasis token */
 .bold {
   font-family: var(--font-serif);
   font-style: italic;
@@ -172,61 +212,76 @@ h6 {
   display: inline-block;
   text-transform: lowercase;
 }
+.bold::first-letter { text-transform: uppercase; }
 
-.bold::first-letter {
-  text-transform: uppercase;
+/* Display sizes — more editorial & confident */
+.display-mega {
+  font-size: clamp(48px, 8vw, 132px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
 }
 
 .display {
-  font-size: clamp(32px, 3.5vw, 48px);
-  /* Unified Editorial Heading Size */
+  font-size: clamp(38px, 4.9vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+}
+
+.heading-xl {
+  font-size: clamp(26px, 2.8vw, 40px);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
-.heading-xl {
-  font-size: clamp(24px, 2.5vw, 34px);
-  /* Shrunk */
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
-}
-
 .heading-lg {
   font-size: clamp(22px, 2vw, 30px);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  letter-spacing: -0.015em;
+  line-height: 1.18;
 }
 
 .heading-md {
   font-size: clamp(18px, 1.8vw, 24px);
   font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  letter-spacing: -0.012em;
+  line-height: 1.22;
 }
 
 .body-lg {
-  font-size: clamp(14px, 1.1vw, 16px);
-  /* Precision sizing */
-  line-height: 1.8;
+  font-size: clamp(16px, 1.1vw, 18px);
+  line-height: 1.78;
   color: var(--text-secondary);
 }
 
 .body-base {
-  font-size: 15px;
+  font-size: 15.5px;
   line-height: 1.7;
   color: var(--text-secondary);
 }
 
+/* Eyebrow / label — monospace for a precise, technical voice */
 .label {
-  font-size: 10px;
-  /* Micro-precision */
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Optional leading tick for eyebrows: <span class="label"><i/>…</span> */
+.label > i {
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+  opacity: 0.8;
 }
 
 /* ── Layout Utilities ──────────────────────────────────────── */
@@ -248,91 +303,114 @@ a {
   text-decoration: none;
 }
 
-/* ── Buttons ───────────────────────────────────────────────── */
+/* ── Buttons — rounded rectangles that echo the logo badge ── */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  /* KEEPING ORIGINAL PADDING */
-  border-radius: var(--radius-sm);
+  gap: 9px;
+  padding: 15px 27px;
+  border-radius: var(--radius-btn);
   font-size: 13px;
-  /* Smaller text within button */
   font-weight: 600;
   font-family: var(--font-sans);
+  letter-spacing: 0.01em;
   cursor: pointer;
   border: none;
-  transition: all var(--transition-base);
+  transition: transform var(--transition-base), background var(--transition-base),
+    color var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
   position: relative;
   white-space: nowrap;
+  overflow: hidden;
 }
 
+/* Primary — the gold "SCALE" badge from the logo, as a button */
 .btn-primary {
-  background: var(--accent);
-  color: var(--bg);
+  background: linear-gradient(135deg, var(--accent-bright), var(--accent) 52%, var(--accent-deep));
+  color: #14100A;
+  box-shadow: inset 0 1px 0 rgba(255, 245, 220, 0.4), 0 16px 38px -20px var(--accent-glow);
 }
-
 .btn-primary:hover {
-  background: var(--text-primary);
-  color: var(--bg);
-  box-shadow: 0 10px 30px rgba(183, 231, 161, 0.3);
+  background: linear-gradient(135deg, #D8B76C, var(--accent) 58%, var(--accent-deep));
+  color: #14100A;
+  box-shadow: inset 0 1px 0 rgba(255, 245, 220, 0.45), 0 20px 48px -20px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
+/* Secondary — quiet ink outline */
 .btn-secondary {
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
 }
-
 .btn-secondary:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
+/* Outline — ink pill on paper */
 .btn-outline {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(234, 228, 214, 0.03);
+  gap: 9px;
+  background: rgba(24, 20, 11, 0.03);
   color: var(--text-primary);
-  border: 1px solid rgba(234, 228, 214, 0.1);
-  padding: 12px 24px;
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  padding: 15px 27px;
+  border-radius: var(--radius-btn);
   font-size: 13px;
   font-weight: 600;
+  letter-spacing: -0.01em;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: all var(--transition-base);
   cursor: pointer;
 }
-
 .btn-outline:hover {
-  background: rgba(234, 228, 214, 0.08);
-  border-color: rgba(234, 228, 214, 0.2);
+  background: rgba(24, 20, 11, 0.06);
+  border-color: var(--border-hover);
   transform: translateY(-1px);
 }
 
 /* ── Focus Visibility (WCAG 2.4.7) ─────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 2px;
   border-radius: 2px;
 }
-
-/* Inputs restyle their border on focus; keep a clear ring too. */
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-ink);
   outline-offset: 1px;
 }
-
-/* Don't show the ring for mouse users who don't need it. */
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* ── Reduced Motion (WCAG 2.3.3) ───────────────────────────── */
+.hp-field {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+/* ── Motion-reveal helpers (GSAP toggles these) ────────────── */
+/* Mask wrapper for line-by-line SplitText reveals */
+.gs-line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+/* SplitText measures line breaks directly, which fights text-wrap:balance
+   on headings and can briefly mis-wrap. Opt split elements out of balancing. */
+[data-split] {
+  text-wrap: wrap;
+}
+
+/* Reduced Motion (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -342,14 +420,14 @@ select:focus-visible {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  /* Stop the constant background grain/glow churn. */
+  html { scroll-behavior: auto; }
   body::before,
-  .section::after {
-    animation: none !important;
+  .section::after { animation: none !important; }
+
+  /* Never leave reveal content hidden if JS motion is suppressed. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 }

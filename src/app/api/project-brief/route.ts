@@ -1,7 +1,16 @@
 import { NextResponse } from 'next/server';
 import { sendEmail, isValidEmail } from '@/lib/email';
+import { cleanText, validatePublicFormRequest } from '@/lib/request-security';
 
 export async function POST(request: Request) {
+  const requestCheck = validatePublicFormRequest(request);
+  if (!requestCheck.ok) {
+    return NextResponse.json(
+      { error: requestCheck.error },
+      { status: requestCheck.status },
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -9,10 +18,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
-  const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
-  const name = str(body.name);
-  const email = str(body.email);
-  const brief = str(body.brief);
+  if (cleanText(body.companyWebsite, 200)) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const str = (v: unknown, max = 500) => cleanText(v, max);
+  const name = str(body.name, 120);
+  const email = str(body.email, 254);
+  const brief = str(body.brief, 8_000);
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = 'Name is required.';
@@ -39,11 +52,17 @@ export async function POST(request: Request) {
 
   try {
     const result = await sendEmail({
-      subject: `New project brief from ${name}`,
+      subject: `New project brief from ${name.replace(/[\r\n]+/g, ' ')}`,
       replyTo: email,
       text: lines.join('\n'),
     });
-    return NextResponse.json({ ok: true, delivered: result.delivered });
+    if (!result.delivered) {
+      return NextResponse.json(
+        { error: 'Brief delivery is not configured. Please email hello@goatscale.com directly.' },
+        { status: 503 },
+      );
+    }
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('[api/project-brief] send failed:', err);
     return NextResponse.json(

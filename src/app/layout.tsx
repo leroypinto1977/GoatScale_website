@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter, Instrument_Serif } from 'next/font/google';
+import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollProgress from '@/components/layout/ScrollProgress';
 import SmoothScroll from '@/components/layout/SmoothScroll';
+import MotionProvider from '@/components/layout/MotionProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,19 +21,27 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
-  title: 'Goat Scale — Build Systems. Scale Fast.',
+  title: 'Goat Scale — Launch. Operate. Transform.',
   description:
-    'Goat Scale is a dev agency that builds websites, web apps, and mobile applications — and the internal systems and workflows that help companies scale 10x faster.',
+    'Goat Scale builds websites, web apps, and mobile apps — and the CRM, ERP, and business operating systems companies run on. Product engineering, business systems, and digital transformation.',
   keywords: [
-    'dev agency',
-    'web development',
+    'web development agency',
     'web applications',
-    'mobile apps',
-    'internal systems',
+    'mobile app development',
+    'CRM development',
+    'ERP systems',
+    'business operating system',
     'workflow automation',
-    'Next.js agency',
-    'scale',
+    'digital transformation',
+    'digitalisation',
   ],
   authors: [{ name: 'Goat Scale' }],
   robots: {
@@ -45,23 +54,23 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Goat Scale — Build Systems. Scale Fast.',
+    title: 'Goat Scale — Launch. Operate. Transform.',
     description:
-      'We design and build the websites, apps, and internal systems that help companies move 10x faster.',
+      'We build websites, web & mobile apps — and the CRM, ERP, and operating systems companies run on.',
     type: 'website',
     url: 'https://goatscale.com',
     siteName: 'Goat Scale',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Goat Scale — Build Systems. Scale Fast.',
+    title: 'Goat Scale — Launch. Operate. Transform.',
     description:
-      'We design and build the websites, apps, and internal systems that help companies move 10x faster.',
+      'We build websites, web & mobile apps — and the CRM, ERP, and operating systems companies run on.',
     creator: '@goatscale',
   },
 };
 
-import CustomCursor from '@/components/ui/CustomCursor';
+import Preloader from '@/components/layout/Preloader';
 
 export default function RootLayout({
   children,
@@ -74,28 +83,29 @@ export default function RootLayout({
     name: 'Goat Scale',
     url: 'https://goatscale.com',
     description:
-      'Dev agency that builds websites, web apps, mobile applications, and the internal systems that help companies scale 10x faster.',
+      'Goat Scale builds websites, web apps, and mobile apps — and the CRM, ERP, and business operating systems companies run on.',
     email: 'hello@goatscale.com',
-    sameAs: ['https://linkedin.com', 'https://github.com'],
   };
 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${instrumentSerif.variable}`}
+      className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <CustomCursor />
-        <SmoothScroll>
-          <ScrollProgress />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </SmoothScroll>
+        <MotionProvider>
+          <Preloader />
+          <SmoothScroll>
+            <ScrollProgress />
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </SmoothScroll>
+        </MotionProvider>
       </body>
     </html>
   );

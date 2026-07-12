@@ -2,6 +2,8 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Reveal from '@/components/ui/Reveal';
+import { EASE_OUT, viewportOnce } from '@/lib/motion';
 import styles from './Work.module.css';
 
 const projects = [
@@ -62,13 +64,20 @@ function ProjectCard({ project, featured, delay = 0 }: ProjectCardProps) {
     <motion.div
       ref={cardRef}
       className={`${styles.card} ${featured ? styles.featured : ''}`}
+      style={{ position: 'relative' }}
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Image */}
-      <div className={styles.imageWrap}>
+      {/* Image — clip-path wipe reveal + parallax */}
+      <motion.div
+        className={styles.imageWrap}
+        initial={{ clipPath: 'inset(100% 0 0 0)' }}
+        whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+        viewport={viewportOnce}
+        transition={{ duration: 1, ease: EASE_OUT, delay: delay + 0.1 }}
+      >
         <motion.img
           src={project.image}
           alt={project.title}
@@ -76,7 +85,7 @@ function ProjectCard({ project, featured, delay = 0 }: ProjectCardProps) {
           loading="lazy"
           style={{ y, scale: 1.2 }} /* Over-scale slightly to provide padding for parallax */
         />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div className={styles.cardContent}>
@@ -109,25 +118,33 @@ export default function Work() {
     <section ref={containerRef} className={`section ${styles.work}`} id="work">
       <div className="container">
         {/* Header */}
-        <motion.div
-          className={styles.header}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <span className="label">Selected Work</span>
+        <div className={styles.header}>
+          <motion.span
+            className="label"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={viewportOnce}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+          >
+            <i />Selected Work
+          </motion.span>
           <div className={styles.headerRow}>
-            <h2 className={`display ${styles.title}`}>
+            <Reveal as="h2" split="lines" className={`display ${styles.title}`}>
               Work that<br />
               <span className={styles.accent}>speaks for itself.</span>
-            </h2>
-            <p className={`body-base ${styles.headerDesc}`}>
+            </Reveal>
+            <motion.p
+              className={`body-base ${styles.headerDesc}`}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewportOnce}
+              transition={{ duration: 0.7, delay: 0.15, ease: EASE_OUT }}
+            >
               A few of the systems, platforms, and products
               we&apos;ve shipped for clients across industries.
-            </p>
+            </motion.p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Asymmetric Grid */}
         <div className={styles.grid}>

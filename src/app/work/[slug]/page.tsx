@@ -14,6 +14,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${project.title} — Goat Scale`,
     description: project.summary,
+    alternates: { canonical: `/work/${project.slug}` },
+    openGraph: {
+      title: `${project.title} — Goat Scale`,
+      description: project.summary,
+      url: `/work/${project.slug}`,
+      type: 'article',
+      images: [{ url: project.heroImage, alt: project.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} — Goat Scale`,
+      description: project.summary,
+      images: [project.heroImage],
+    },
   };
 }
 

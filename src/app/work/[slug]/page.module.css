@@ -40,7 +40,7 @@
   transform: translate(-50%, -50%);
   font-size: 16vw; /* Dynamic width-based scale */
   font-weight: 900;
-  color: rgba(234, 228, 214, 0.03);
+  color: rgba(23, 19, 7, 0.04);
   text-transform: uppercase;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -179,7 +179,7 @@
   max-width: 800px;
   border: 1px solid var(--border);
   padding: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(24, 20, 11, 0.025);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -209,7 +209,7 @@
 .imageOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(6, 9, 6, 0.4) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(20, 16, 10, 0.32) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -385,9 +385,9 @@
   flex-direction: column;
   gap: 12px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(24, 20, 11, 0.025);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(234, 228, 214, 0.05);
+  border: 1px solid rgba(24, 20, 11, 0.08);
   border-radius: 4px;
   position: relative;
 }

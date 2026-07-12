@@ -1,14 +1,14 @@
 .work {
   position: relative;
-  background: var(--bg);
-  padding: 160px 0;
+  background: transparent;
+  padding: clamp(96px, 10vw, 168px) 0;
 }
 
 .header {
-  margin-bottom: 120px;
+  margin-bottom: clamp(56px, 7vw, 96px);
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .headerRow {
@@ -20,9 +20,9 @@
 }
 
 .title {
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-weight: 560;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
   color: var(--text-primary);
 }
 
@@ -40,10 +40,10 @@
 }
 
 .headerDesc {
-  max-width: 320px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-muted);
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.78;
+  color: var(--text-secondary);
   text-align: right;
 }
 
@@ -51,54 +51,65 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 120px; /* Massive gap for luxury feel */
+  gap: clamp(56px, 7vw, 96px);
   align-items: start;
 }
 
 .col1 {
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: clamp(56px, 7vw, 96px);
 }
 
 .col2 {
   display: flex;
   flex-direction: column;
-  gap: 120px;
-  padding-top: 160px; /* Large architectural offset */
+  gap: clamp(56px, 7vw, 96px);
+  padding-top: clamp(72px, 9vw, 132px);
 }
 
 /* Card Refinement */
 .card {
   position: relative;
   width: 100%;
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--transition-slow);
+}
+
+.card:hover {
+  transform: translateY(-4px);
 }
 
 .imageWrap {
   position: relative;
-  aspect-ratio: 3/2; /* Sophisticated museum ratio */
+  aspect-ratio: 4/3;
   overflow: hidden;
-  border-radius: 4px; /* Subtle radius for technical feel */
-  background: var(--surface);
-  border: 1px solid rgba(234, 228, 214, 0.05);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+  border: 1px solid rgba(24, 20, 11, 0.1);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.card:hover .imageWrap {
+  box-shadow: var(--shadow-card-hover);
 }
 
 .actualImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0.85;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity var(--transition-base);
+  opacity: 0.78;
+  filter: saturate(0.84) contrast(1.05) sepia(0.08);
 }
 
 .card:hover .actualImage {
-  transform: scale(1.05);
-  opacity: 1;
+  transform: scale(1.035);
+  opacity: 0.94;
 }
 
 .cardContent {
-  padding: 32px 0 0 0;
+  padding: 24px 2px 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -113,7 +124,7 @@
 
 .category {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
@@ -130,23 +141,23 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   color: var(--text-muted);
-  border-bottom: 1px solid rgba(234, 228, 214, 0.1);
+  border-bottom: 1px solid rgba(24, 20, 11, 0.14);
   padding-bottom: 2px;
 }
 
 .projectTitle {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 560;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
   margin: 0;
 }
 
 .projectDesc {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-muted);
-  max-width: 400px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 440px;
 }
 
 @media (max-width: 1024px) {

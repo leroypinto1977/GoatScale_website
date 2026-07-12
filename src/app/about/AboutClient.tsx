@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Reveal from '@/components/ui/Reveal';
+import { EASE_OUT } from '@/lib/motion';
 import styles from './page.module.css';
 
 
@@ -39,17 +41,27 @@ export default function AboutPage() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className="container">
-          <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
-            <span className="label">Who We Are</span>
-            <h1 className={styles.heroTitle}>
-              We are<br />
-              <span className={styles.accent}>Goat Scale.</span>
-            </h1>
-            <p className={styles.heroSub}>
-              A small, sharp dev agency that builds the websites, apps, and internal systems
-              that help ambitious companies move faster than they thought possible.
-            </p>
-          </motion.div>
+          <motion.span
+            className="label"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+          >
+            <i />Who We Are
+          </motion.span>
+          <Reveal as="h1" split="lines" className={styles.heroTitle} delay={0.15}>
+            We are<br />
+            <span className={styles.accent}>Goat Scale.</span>
+          </Reveal>
+          <motion.p
+            className={styles.heroSub}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
+          >
+            A small, sharp team that builds the websites, apps, and business systems
+            ambitious companies run on — and helps them transform how they operate.
+          </motion.p>
         </div>
       </section>
 
@@ -90,7 +102,7 @@ export default function AboutPage() {
       <section className={styles.storyTextSection}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className={styles.storyArticle}>
-            <span className="label">Our Story</span>
+            <span className="label"><i />Our Story</span>
             <h2 className={`heading-lg ${styles.storyTitle}`}>Built from a belief that good software changes everything.</h2>
             <div className={styles.storyParagraphs}>
               <p className="body-lg">

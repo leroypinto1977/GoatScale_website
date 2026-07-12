@@ -2,9 +2,8 @@
  * Lightweight email delivery helper.
  *
  * Uses the Resend REST API (no SDK dependency) when RESEND_API_KEY is set.
- * If no provider is configured, the submission is logged server-side and
- * the call still resolves so local development works end-to-end. Wire your
- * own provider here (Resend, Postmark, SES, a CRM webhook, etc.).
+ * If no provider is configured, the helper returns a non-delivery result.
+ * Submission content is never written to logs.
  *
  * Required env to actually send mail:
  *   RESEND_API_KEY   — your Resend API key
@@ -24,12 +23,7 @@ export async function sendEmail(opts: {
   const from = process.env.CONTACT_FROM ?? 'Goat Scale <onboarding@resend.dev>';
 
   if (!apiKey) {
-    // No provider configured — don't lose the lead, surface it in the logs.
-    console.warn(
-      '[email] RESEND_API_KEY not set — submission logged but not emailed:\n',
-      `subject: ${opts.subject}\n`,
-      opts.text,
-    );
+    console.warn('[email] RESEND_API_KEY not set — submission was not delivered.');
     return { delivered: false, reason: 'no-provider' };
   }
 

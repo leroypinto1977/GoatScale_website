@@ -14,13 +14,15 @@ const metrics = [
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
+  const hasRun = useRef(false);
 
   useEffect(() => {
     let animationFrame: number;
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !hasRun.current) {
+          hasRun.current = true;
           const duration = 1800;
           const step = (timestamp: number, startTime: number) => {
             const progress = Math.min((timestamp - startTime) / duration, 1);
@@ -28,20 +30,18 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
             setCount(Math.floor(eased * target));
             if (progress < 1) {
               animationFrame = requestAnimationFrame((t) => step(t, startTime));
+            } else {
+              setCount(target);
             }
           };
           animationFrame = requestAnimationFrame((t) => step(t, t));
-        } else {
-          // Reset count when scrolled out of view so it can count up again
-          setCount(0);
-          if (animationFrame) cancelAnimationFrame(animationFrame);
         }
       },
       { threshold: 0.5 }
     );
 
     if (ref.current) observer.observe(ref.current);
-    
+
     return () => {
       observer.disconnect();
       if (animationFrame) cancelAnimationFrame(animationFrame);
@@ -58,8 +58,8 @@ const lines = [
   { text: 'We build the systems underneath it —', muted: false },
   { text: 'the workflows, the automations,', muted: false },
   { text: 'the infrastructure —', muted: false },
-  { text: 'so your team can move fast.', accent: true, muted: false },
-  { text: 'and systems are built to last.', accent: true, muted: false },
+  { text: 'so your team moves fast', accent: true, muted: false },
+  { text: 'and what we build lasts.', accent: true, muted: false },
 ];
 
 function AnimatedLine({ line }: { line: typeof lines[0] }) {
@@ -77,7 +77,7 @@ function AnimatedLine({ line }: { line: typeof lines[0] }) {
     <motion.p
       ref={ref}
       className={`${styles.line} ${line.muted ? styles.muted : ''} ${line.accent ? styles.accentLine : ''}`}
-      style={{ opacity }}
+      style={{ opacity, position: 'relative' }}
     >
       {line.text}
     </motion.p>
@@ -93,7 +93,7 @@ export default function Manifesto() {
         <div className={styles.inner}>
           {/* Label */}
           <span className="label">
-            Why Goat Scale
+            <i />Why Goat Scale
           </span>
 
           {/* Editorial statement - Scroll Driven */}
@@ -125,7 +125,7 @@ export default function Manifesto() {
                 className={styles.metric}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "0px 0px -100px 0px" }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <div className={styles.metricValue}>

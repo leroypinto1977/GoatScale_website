@@ -4,8 +4,8 @@
 
 .inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(460px, 0.8fr);
+  gap: clamp(64px, 8vw, 120px);
   align-items: start;
 }
 
@@ -13,15 +13,15 @@
 .left {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 30px;
   position: sticky;
   top: 120px;
 }
 
 .headline {
   margin: 0;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 560;
+  letter-spacing: -0.045em;
 }
 
 .accent {
@@ -33,9 +33,9 @@
 }
 
 .desc {
-  max-width: 400px;
-  font-size: 14px;
-  line-height: 1.7;
+  max-width: 460px;
+  font-size: 15.5px;
+  line-height: 1.78;
   color: var(--text-secondary);
 }
 
@@ -43,8 +43,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 560;
   color: var(--text-primary);
   text-decoration: none;
   border-bottom: 1px solid var(--border);
@@ -96,13 +96,19 @@
 
 /* Right — Form */
 .right {
-  padding-top: 8px;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.2)),
+    var(--surface);
+  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 26px;
 }
 
 .field {
@@ -120,16 +126,15 @@
 }
 
 .input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  border-radius: 0;
-  padding: 12px 0;
-  font-size: 16px;
+  background: rgba(24, 20, 11, 0.035);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px 16px;
+  font-size: 15px;
   font-family: var(--font-sans);
   color: var(--text-primary);
   outline: none;
-  transition: border-color var(--transition-base);
+  transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base);
   width: 100%;
 }
 
@@ -139,12 +144,14 @@
 
 .input:focus {
   border-color: var(--accent);
+  background: rgba(255, 253, 247, 0.95);
+  box-shadow: 0 0 0 4px rgba(158, 122, 54, 0.12);
 }
 
 .textarea {
   resize: none;
   line-height: 1.6;
-  min-height: 120px;
+  min-height: 142px;
 }
 
 .submit {
@@ -198,7 +205,7 @@
 .formError {
   margin-top: 12px;
   font-size: 13px;
-  color: #ff8f8f;
+  color: #B3382C;
 }
 
 /* Responsive */
