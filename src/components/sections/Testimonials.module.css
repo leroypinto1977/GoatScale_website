@@ -72,9 +72,9 @@
   gap: 24px;
   padding: clamp(30px, 3vw, 42px);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.2)),
+    linear-gradient(180deg, rgba(226, 233, 255, 0.05), rgba(226, 233, 255, 0.01)),
     var(--surface);
-  border: 1px solid rgba(24, 20, 11, 0.1);
+  border: 1px solid rgba(226, 233, 255, 0.1);
   border-radius: var(--radius-xl);
   margin: 0;
   overflow: hidden;
@@ -89,13 +89,12 @@
 .featured {
   grid-column: span 1;
   background:
-    linear-gradient(180deg, rgba(158, 122, 54, 0.1), rgba(255, 255, 255, 0.45)),
+    linear-gradient(180deg, rgba(94, 124, 255, 0.14), rgba(94, 124, 255, 0.03)),
     var(--surface);
   border-color: var(--border-hover);
 }
 
 .quoteMark {
-  font-family: var(--font-serif);
   font-size: 72px;
   line-height: 0.6;
   color: var(--accent);
@@ -126,7 +125,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgba(158, 122, 54, 0.14);
+  background: rgba(94, 124, 255, 0.14);
   border: 1px solid var(--border-hover);
   color: var(--accent-ink);
   font-weight: 600;
@@ -136,7 +135,7 @@
 .featured .avatar {
   background: linear-gradient(135deg, var(--accent-deep), var(--accent));
   border-color: var(--accent-bright);
-  color: #FCFAF3;
+  color: #FFFFFF;
   box-shadow: 0 0 0 3px var(--accent-soft), 0 0 16px var(--accent-glow);
 }
 

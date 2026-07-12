@@ -15,17 +15,13 @@
 }
 
 .accent {
-  color: var(--accent);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  background: linear-gradient(100deg, var(--accent-bright) 0%, var(--accent) 50%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: inline-block;
-  text-transform: lowercase;
 }
 
-.accent::first-letter {
-  text-transform: uppercase;
-}
 
 /* List */
 .list {
@@ -78,8 +74,7 @@
 /* Pillar kicker — the verb: Launch / Operate / Transform */
 .kicker {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-weight: 500;
   font-size: clamp(15px, 1.2vw, 19px);
   color: var(--accent);
   margin-bottom: 6px;
@@ -133,8 +128,8 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  background: rgba(24, 20, 11, 0.03);
-  border: 1px solid rgba(24, 20, 11, 0.1);
+  background: rgba(226, 233, 255, 0.03);
+  border: 1px solid rgba(226, 233, 255, 0.1);
   padding: 6px 10px;
   border-radius: 7px;
 }

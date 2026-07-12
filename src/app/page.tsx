@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import Marquee from "@/components/ui/Marquee";
 import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import Manifesto from "@/components/sections/Manifesto";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Marquee />
       <Services />
       <Process />
       <Manifesto />

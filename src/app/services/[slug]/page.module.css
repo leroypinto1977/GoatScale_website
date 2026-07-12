@@ -22,8 +22,7 @@
 
 .kicker {
   display: block;
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-weight: 500;
   font-weight: 400;
   color: var(--accent);
   font-size: 0.52em;
@@ -105,14 +104,14 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.2)),
+    linear-gradient(180deg, rgba(226, 233, 255, 0.05), rgba(226, 233, 255, 0.01)),
     var(--surface);
   box-shadow: var(--shadow-1);
 }
 
 .valueCardAlt {
   background:
-    linear-gradient(180deg, rgba(158, 122, 54, 0.09), rgba(255, 255, 255, 0.4)),
+    linear-gradient(180deg, rgba(94, 124, 255, 0.14), rgba(94, 124, 255, 0.03)),
     var(--surface);
   border-color: var(--border-hover);
 }
@@ -258,7 +257,7 @@
   padding: clamp(22px, 2.4vw, 32px);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: rgba(24, 20, 11, 0.02);
+  background: rgba(226, 233, 255, 0.02);
   transition: border-color var(--transition-base), background var(--transition-base),
     transform var(--transition-base);
 }
@@ -270,8 +269,7 @@
 }
 
 .otherKicker {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-weight: 500;
   font-size: clamp(18px, 1.7vw, 24px);
   color: var(--accent);
 }
@@ -292,7 +290,7 @@
 .ctaBand {
   padding: clamp(56px, 7vw, 96px) 0;
   background:
-    radial-gradient(70% 120% at 50% 0%, rgba(158, 122, 54, 0.12), transparent 60%),
+    radial-gradient(70% 120% at 50% 0%, rgba(94, 124, 255, 0.12), transparent 60%),
     var(--bg-soft);
   border-top: 1px solid var(--border);
 }

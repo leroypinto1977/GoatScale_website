@@ -13,8 +13,8 @@
   height: 54vw;
   background: radial-gradient(
     circle at center,
-    rgba(158, 122, 54, 0.07) 0%,
-    rgba(201, 164, 92, 0.03) 42%,
+    rgba(94, 124, 255, 0.07) 0%,
+    rgba(143, 166, 255, 0.03) 42%,
     transparent 70%
   );
   filter: blur(110px);

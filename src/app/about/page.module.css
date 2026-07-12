@@ -15,17 +15,13 @@
 }
 
 .accent {
-  color: var(--accent);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  background: linear-gradient(100deg, var(--accent-bright) 0%, var(--accent) 50%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: inline-block;
-  text-transform: lowercase;
 }
 
-.accent::first-letter {
-  text-transform: uppercase;
-}
 
 .heroSub {
   font-size: clamp(16px, 1.5vw, 20px);
@@ -179,7 +175,7 @@
   font-size: 14px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: #14100A;
+  color: #0A0C12;
 }
 
 .tickerLabel {
@@ -253,7 +249,7 @@
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 40px 100px -30px rgba(74, 58, 26, 0.45);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.45);
 }
 
 .mainPortrait {

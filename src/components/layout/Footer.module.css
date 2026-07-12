@@ -4,7 +4,7 @@
   position: relative;
   border-top: 1px solid var(--onyx-border);
   background:
-    radial-gradient(80% 120% at 50% 100%, rgba(158, 122, 54, 0.14) 0%, transparent 60%),
+    radial-gradient(80% 120% at 50% 100%, rgba(94, 124, 255, 0.14) 0%, transparent 60%),
     var(--onyx);
   overflow: hidden;
   color: var(--onyx-text);
@@ -70,12 +70,12 @@
   font-weight: 700;
   letter-spacing: 0.3em;
   text-indent: 0.3em;
-  color: #14100A;
+  color: #0A0C12;
   background: linear-gradient(135deg, var(--accent-bright), var(--accent) 60%, var(--accent-deep));
   border-radius: 7px;
   padding: 5.5px 8px;
   line-height: 1;
-  box-shadow: inset 0 1px 0 rgba(255, 245, 220, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .tagline {

@@ -1,52 +1,21 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Reveal from '@/components/ui/Reveal';
 import { EASE_OUT, viewportOnce } from '@/lib/motion';
+import { projects, type Project } from '@/lib/projects';
 import styles from './Work.module.css';
 
-const projects = [
-  {
-    id: 1,
-    title: 'FlowDesk CRM',
-    category: 'Web Application',
-    description: 'A full-stack CRM system built for a logistics company, replacing 6 manual spreadsheet workflows with one unified platform.',
-    image: '/images/projects/flowdesk-thumb.png',
-    tags: ['Next.js', 'PostgreSQL', 'System Design'],
-    featured: true,
-  },
-  {
-    id: 2,
-    title: 'Pulse Mobile',
-    category: 'Mobile App',
-    description: 'Cross-platform fitness tracking app with real-time data sync and AI-powered coaching.',
-    image: '/images/projects/pulse-thumb.png',
-    tags: ['React Native', 'Node.js'],
-    featured: false,
-  },
-  {
-    id: 3,
-    title: 'Meridian Studios',
-    category: 'Web Development',
-    description: 'Brand website for a premium creative studio. Zero-bloat, 100 Lighthouse score, fully animated.',
-    image: '/images/projects/meridian-thumb.png',
-    tags: ['Next.js', 'GSAP', 'CMS'],
-    featured: false,
-  },
-  {
-    id: 4,
-    title: 'WarehouseOS',
-    category: 'Internal System',
-    description: 'End-to-end warehouse management system with live inventory tracking and automated reorder workflows.',
-    image: '/images/projects/warehouse-thumb.png',
-    tags: ['React', 'Python', 'Automation'],
-    featured: true,
-  },
-];
+/* Featured on the homepage — the four strongest, in display order. */
+const FEATURED_SLUGS = ['goat-erp', 'akshara', 'alpio', 'evherfit'];
+const featuredProjects = FEATURED_SLUGS.map(
+  (slug) => projects.find((p) => p.slug === slug)!
+).filter(Boolean);
 
 interface ProjectCardProps {
-  project: typeof projects[0];
+  project: Project;
   featured?: boolean;
   delay?: number;
 }
@@ -70,36 +39,38 @@ function ProjectCard({ project, featured, delay = 0 }: ProjectCardProps) {
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Image — clip-path wipe reveal + parallax */}
-      <motion.div
-        className={styles.imageWrap}
-        initial={{ clipPath: 'inset(100% 0 0 0)' }}
-        whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-        viewport={viewportOnce}
-        transition={{ duration: 1, ease: EASE_OUT, delay: delay + 0.1 }}
-      >
-        <motion.img
-          src={project.image}
-          alt={project.title}
-          className={styles.actualImage}
-          loading="lazy"
-          style={{ y, scale: 1.2 }} /* Over-scale slightly to provide padding for parallax */
-        />
-      </motion.div>
+      <Link href={`/work/${project.slug}`} className={styles.cardLink}>
+        {/* Image — clip-path wipe reveal + parallax */}
+        <motion.div
+          className={styles.imageWrap}
+          initial={{ clipPath: 'inset(100% 0 0 0)' }}
+          whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+          viewport={viewportOnce}
+          transition={{ duration: 1, ease: EASE_OUT, delay: delay + 0.1 }}
+        >
+          <motion.img
+            src={project.thumbnail}
+            alt={`${project.title} — ${project.summary}`}
+            className={styles.actualImage}
+            loading="lazy"
+            style={{ y, scale: 1.2 }} /* Over-scale slightly to provide padding for parallax */
+          />
+        </motion.div>
 
-      {/* Content */}
-      <div className={styles.cardContent}>
-        <div className={styles.cardMeta}>
-          <span className={styles.category}>{project.category}</span>
-          <div className={styles.tags}>
-            {project.tags.map((tag) => (
-              <span key={tag} className={styles.tag}>{tag}</span>
-            ))}
+        {/* Content */}
+        <div className={styles.cardContent}>
+          <div className={styles.cardMeta}>
+            <span className={styles.category}>{project.category}</span>
+            <div className={styles.tags}>
+              {project.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className={styles.tag}>{tag}</span>
+              ))}
+            </div>
           </div>
+          <h3 className={styles.projectTitle}>{project.title}</h3>
+          <p className={styles.projectDesc}>{project.summary}</p>
         </div>
-        <h3 className={styles.projectTitle}>{project.title}</h3>
-        <p className={styles.projectDesc}>{project.description}</p>
-      </div>
+      </Link>
     </motion.div>
   );
 }
@@ -130,8 +101,8 @@ export default function Work() {
           </motion.span>
           <div className={styles.headerRow}>
             <Reveal as="h2" split="lines" className={`display ${styles.title}`}>
-              Work that<br />
-              <span className={styles.accent}>speaks for itself.</span>
+              Real systems,<br />
+              <span className={styles.accent}>running real businesses.</span>
             </Reveal>
             <motion.p
               className={`body-base ${styles.headerDesc}`}
@@ -140,8 +111,8 @@ export default function Work() {
               viewport={viewportOnce}
               transition={{ duration: 0.7, delay: 0.15, ease: EASE_OUT }}
             >
-              A few of the systems, platforms, and products
-              we&apos;ve shipped for clients across industries.
+              ERPs, storefronts, client portals, and franchise platforms —
+              shipped for real clients, shown as they run in production.
             </motion.p>
           </div>
         </div>
@@ -149,14 +120,30 @@ export default function Work() {
         {/* Asymmetric Grid */}
         <div className={styles.grid}>
           <div className={styles.col1}>
-            <ProjectCard project={projects[0]} featured delay={0} />
-            <ProjectCard project={projects[2]} delay={0.1} />
+            <ProjectCard project={featuredProjects[0]} featured delay={0} />
+            <ProjectCard project={featuredProjects[2]} delay={0.1} />
           </div>
           <motion.div className={styles.col2} style={{ y: y2 }}>
-            <ProjectCard project={projects[1]} delay={0.15} />
-            <ProjectCard project={projects[3]} featured delay={0.05} />
+            <ProjectCard project={featuredProjects[1]} delay={0.15} />
+            <ProjectCard project={featuredProjects[3]} featured delay={0.05} />
           </motion.div>
         </div>
+
+        {/* All-work CTA */}
+        <motion.div
+          className={styles.allWork}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
+        >
+          <Link href="/work" className="btn btn-outline">
+            All {projects.length} case studies
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

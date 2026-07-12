@@ -27,21 +27,17 @@
 }
 
 .line.muted {
-  color: rgba(23, 19, 7, 0.32);
+  color: rgba(242, 245, 251, 0.22);
 }
 
 .line.accentLine {
-  color: var(--accent);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  background: linear-gradient(100deg, var(--accent-bright) 0%, var(--accent) 50%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: inline-block;
-  text-transform: lowercase;
 }
 
-.line.accentLine::first-letter {
-  text-transform: uppercase;
-}
 
 /* Attribution */
 .attribution {

@@ -12,16 +12,17 @@ import {
 } from 'framer-motion';
 import styles from './Marquee.module.css';
 
+/* Real clients & products we've shipped for. */
 const items = [
-  'NEXT.JS',
-  'GSAP',
-  'SYSTEM DESIGN',
-  'SCALING',
-  'FULL-STACK',
-  'ARCHITECTURE',
-  'WEB APPS',
-  'MOBILE APPS',
-  'INTERNAL TOOLS',
+  'THE GOAT MEDIA',
+  'AKSHARA',
+  'EVHERFIT',
+  'SOULE HEALERS',
+  'GOAT ASSETS',
+  'IMOBILES',
+  '6F SCHOOL OF IT',
+  'MENTORCLOUD',
+  'PATTA SILKS',
 ];
 
 /** Keep a value looping within [min, max). */

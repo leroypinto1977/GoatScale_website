@@ -92,7 +92,7 @@ export default function Footer() {
         {/* Giant wordmark — the logo at monumental scale */}
         <div className={styles.wordmark} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/brand/goatscale-lockup.png" alt="" className={styles.wordmarkImg} />
+          <img src="/images/brand/goatscale-lockup-dark.png" alt="" className={styles.wordmarkImg} />
         </div>
 
         {/* Bottom bar */}

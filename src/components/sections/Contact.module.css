@@ -26,8 +26,7 @@
 
 .accent {
   color: var(--accent);
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-weight: 500;
   font-weight: 400;
   text-transform: capitalize;
 }
@@ -100,9 +99,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.2)),
+    linear-gradient(180deg, rgba(226, 233, 255, 0.05), rgba(226, 233, 255, 0.01)),
     var(--surface);
-  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .form {
@@ -126,7 +125,7 @@
 }
 
 .input {
-  background: rgba(24, 20, 11, 0.035);
+  background: rgba(226, 233, 255, 0.035);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 15px 16px;
@@ -144,8 +143,8 @@
 
 .input:focus {
   border-color: var(--accent);
-  background: rgba(255, 253, 247, 0.95);
-  box-shadow: 0 0 0 4px rgba(158, 122, 54, 0.12);
+  background: rgba(226, 233, 255, 0.06);
+  box-shadow: 0 0 0 4px rgba(94, 124, 255, 0.12);
 }
 
 .textarea {
@@ -205,7 +204,7 @@
 .formError {
   margin-top: 12px;
   font-size: 13px;
-  color: #B3382C;
+  color: #FF7A6E;
 }
 
 /* Responsive */

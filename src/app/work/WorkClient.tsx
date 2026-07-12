@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects } from '@/lib/projects';
+import { projects, labProjects } from '@/lib/projects';
 import type { Project } from '@/lib/projects';
 import Reveal from '@/components/ui/Reveal';
 import { EASE_OUT } from '@/lib/motion';
@@ -89,7 +89,8 @@ export default function WorkPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: EASE_OUT }}
           >
-            {projects.length} projects shipped across web, mobile, and internal systems.
+            {projects.length} case studies — real systems shown as they run in production,
+            from ERPs and client portals to storefronts and franchise platforms.
           </motion.p>
         </div>
       </section>
@@ -130,7 +131,28 @@ export default function WorkPage() {
         </div>
       </section>
 
-
+      {/* In the lab — products & platforms currently in build */}
+      <section className={styles.lab}>
+        <div className="container">
+          <div className={styles.labHeader}>
+            <span className="label"><i />In the Lab</span>
+            <h2 className={styles.labTitle}>Products currently in build.</h2>
+            <p className={styles.labSub}>
+              Beyond client work, we engineer our own platforms — the same team,
+              the same standards, pointed at harder problems.
+            </p>
+          </div>
+          <div className={styles.labGrid}>
+            {labProjects.map((lab) => (
+              <div key={lab.name} className={styles.labItem}>
+                <span className={styles.labName}>{lab.name}</span>
+                <span className={styles.labDescriptor}>{lab.descriptor}</span>
+                <span className={styles.labStack}>{lab.stack}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

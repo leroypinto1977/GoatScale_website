@@ -32,17 +32,13 @@
 }
 
 .accent {
-  color: var(--accent);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  background: linear-gradient(100deg, var(--accent-bright) 0%, var(--accent) 50%, var(--violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: inline-block;
-  text-transform: lowercase;
 }
 
-.accent::first-letter {
-  text-transform: uppercase;
-}
 
 /* Step Indicator */
 .stepIndicator {
@@ -429,5 +425,5 @@
 .formError {
   margin-top: 14px;
   font-size: 13px;
-  color: #B3382C;
+  color: #FF7A6E;
 }

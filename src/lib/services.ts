@@ -53,7 +53,7 @@ export const servicePillars: ServicePillar[] = [
       "Your current site doesn't match the calibre of your business",
       'You have a validated idea and need an MVP in market',
     ],
-    relatedSlugs: ['meridian-studios', 'pulse-mobile'],
+    relatedSlugs: ['akshara', 'evherfit', 'soule-healers'],
   },
   {
     slug: 'operate',
@@ -92,7 +92,7 @@ export const servicePillars: ServicePillar[] = [
       "Off-the-shelf CRM or ERP doesn't fit how you work",
       'Your team spends hours a day shuffling data between tools',
     ],
-    relatedSlugs: ['flowdesk-crm', 'warehouseos'],
+    relatedSlugs: ['goat-erp', 'alpio', 'imobiles'],
   },
   {
     slug: 'transform',
@@ -131,7 +131,7 @@ export const servicePillars: ServicePillar[] = [
       'A decade-old system is holding the business hostage',
       "You're scaling and the manual processes are cracking",
     ],
-    relatedSlugs: ['warehouseos', 'flowdesk-crm'],
+    relatedSlugs: ['imobiles', 'goat-erp'],
   },
 ];
 
