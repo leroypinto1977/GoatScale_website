@@ -31,7 +31,7 @@ export default function OpengraphImage() {
               fontWeight: 700,
               letterSpacing: '0.3em',
               color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #8FA6FF, #5E7CFF 60%, #8B5CF6)',
+              background: 'linear-gradient(135deg, #8FA6FF, #5E7CFF 60%, #3D55D6)',
               borderRadius: 8,
               padding: '8px 12px',
             }}

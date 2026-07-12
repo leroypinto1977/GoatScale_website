@@ -32,10 +32,7 @@
 }
 
 .accent {
-  background: linear-gradient(100deg, var(--accent-bright) 0%, var(--accent) 50%, var(--violet) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent);
   display: inline-block;
 }
 

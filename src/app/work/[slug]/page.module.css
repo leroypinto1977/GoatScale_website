@@ -315,10 +315,7 @@
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1;
-  background: linear-gradient(100deg, var(--accent-bright), var(--accent) 60%, var(--violet));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent);
   word-break: break-word;
 }
 
