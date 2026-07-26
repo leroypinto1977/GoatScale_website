@@ -89,7 +89,7 @@
 .featured {
   grid-column: span 1;
   background:
-    linear-gradient(180deg, rgba(94, 124, 255, 0.14), rgba(94, 124, 255, 0.03)),
+    linear-gradient(180deg, rgba(69, 133, 172, 0.14), rgba(69, 133, 172, 0.03)),
     var(--surface);
   border-color: var(--border-hover);
 }
@@ -125,7 +125,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgba(94, 124, 255, 0.14);
+  background: rgba(69, 133, 172, 0.14);
   border: 1px solid var(--border-hover);
   color: var(--accent-ink);
   font-weight: 600;

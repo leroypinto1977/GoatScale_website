@@ -23,17 +23,17 @@
   /* Borders — cool white hairlines */
   --border: rgba(226, 233, 255, 0.08);
   --border-strong: rgba(226, 233, 255, 0.15);
-  --border-hover: rgba(94, 124, 255, 0.55);
+  --border-hover: rgba(69, 133, 172, 0.55);
 
   /* Accent — signal blue (trust + intelligence), violet only in gradients */
-  --accent: #5E7CFF;
-  --accent-bright: #8FA6FF;
-  --accent-deep: #3D55D6;
+  --accent: #4585AC;
+  --accent-bright: #6FA7C9;
+  --accent-deep: #2F6183;
   --violet: #8B5CF6;
   /* Lightened accent for small text — clears WCAG AA on obsidian. */
-  --accent-ink: #A9B9FF;
-  --accent-soft: rgba(94, 124, 255, 0.12);
-  --accent-glow: rgba(94, 124, 255, 0.35);
+  --accent-ink: #A9CBE0;
+  --accent-soft: rgba(69, 133, 172, 0.12);
+  --accent-glow: rgba(69, 133, 172, 0.35);
 
   /* Text — cool white, strict 3-step hierarchy */
   --text-primary: #F2F5FB;
@@ -125,7 +125,7 @@ body::before {
   transform: translate(-50%, -50%);
   width: 70vw;
   height: 70vw;
-  background: radial-gradient(circle, rgba(94, 124, 255, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(69, 133, 172, 0.05) 0%, transparent 70%);
   filter: blur(150px);
   z-index: -1;
   opacity: 0.6;
@@ -152,8 +152,8 @@ html {
 
 body {
   background:
-    radial-gradient(90% 70% at 50% -15%, rgba(94, 124, 255, 0.09), transparent 60%),
-    radial-gradient(50% 40% at 100% 6%, rgba(139, 92, 246, 0.06), transparent 64%),
+    radial-gradient(90% 70% at 50% -15%, rgba(69, 133, 172, 0.09), transparent 60%),
+    radial-gradient(50% 40% at 100% 6%, rgba(69, 133, 172, 0.06), transparent 64%),
     linear-gradient(180deg, #07080C 0%, #060709 52%, #060709 100%);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -175,7 +175,7 @@ body {
   top: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--violet));
+  background: var(--accent);
   z-index: 10000;
   width: 0%;
   transition: width 0.1s linear;

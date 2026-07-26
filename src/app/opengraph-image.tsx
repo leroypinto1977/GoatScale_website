@@ -15,7 +15,7 @@ export default function OpengraphImage() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           background:
-            'radial-gradient(80% 60% at 70% 0%, rgba(94,124,255,0.22), transparent 60%), #060709',
+            'radial-gradient(80% 60% at 70% 0%, rgba(69,133,172,0.22), transparent 60%), #060709',
           color: '#F2F5FB',
           padding: '80px',
           fontFamily: 'sans-serif',
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
               fontWeight: 700,
               letterSpacing: '0.3em',
               color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #8FA6FF, #5E7CFF 60%, #3D55D6)',
+              background: 'linear-gradient(135deg, #6FA7C9, #4585AC 60%, #2F6183)',
               borderRadius: 8,
               padding: '8px 12px',
             }}
@@ -57,7 +57,7 @@ export default function OpengraphImage() {
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
-              color: '#8FA6FF',
+              color: '#6FA7C9',
             }}
           >
             ambitious companies run on.

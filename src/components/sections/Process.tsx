@@ -44,7 +44,7 @@ function ProcessStep({ step }: { step: typeof steps[0] }) {
   const numberColor = useTransform(
     scrollYProgress,
     [0, 0.2, 0.8, 1],
-    ["rgba(158, 122, 54, 0.18)", "rgba(158, 122, 54, 1)", "rgba(158, 122, 54, 1)", "rgba(158, 122, 54, 0.18)"]
+    ["rgba(69, 133, 172, 0.18)", "rgba(69, 133, 172, 1)", "rgba(69, 133, 172, 1)", "rgba(69, 133, 172, 0.18)"]
   );
 
   return (

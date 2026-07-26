@@ -144,7 +144,7 @@
 .input:focus {
   border-color: var(--accent);
   background: rgba(226, 233, 255, 0.06);
-  box-shadow: 0 0 0 4px rgba(94, 124, 255, 0.12);
+  box-shadow: 0 0 0 4px rgba(69, 133, 172, 0.12);
 }
 
 .textarea {

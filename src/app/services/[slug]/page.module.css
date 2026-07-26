@@ -111,7 +111,7 @@
 
 .valueCardAlt {
   background:
-    linear-gradient(180deg, rgba(94, 124, 255, 0.14), rgba(94, 124, 255, 0.03)),
+    linear-gradient(180deg, rgba(69, 133, 172, 0.14), rgba(69, 133, 172, 0.03)),
     var(--surface);
   border-color: var(--border-hover);
 }
@@ -290,7 +290,7 @@
 .ctaBand {
   padding: clamp(56px, 7vw, 96px) 0;
   background:
-    radial-gradient(70% 120% at 50% 0%, rgba(94, 124, 255, 0.12), transparent 60%),
+    radial-gradient(70% 120% at 50% 0%, rgba(69, 133, 172, 0.12), transparent 60%),
     var(--bg-soft);
   border-top: 1px solid var(--border);
 }

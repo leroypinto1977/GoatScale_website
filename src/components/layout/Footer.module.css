@@ -4,7 +4,7 @@
   position: relative;
   border-top: 1px solid var(--onyx-border);
   background:
-    radial-gradient(80% 120% at 50% 100%, rgba(94, 124, 255, 0.14) 0%, transparent 60%),
+    radial-gradient(80% 120% at 50% 100%, rgba(69, 133, 172, 0.14) 0%, transparent 60%),
     var(--onyx);
   overflow: hidden;
   color: var(--onyx-text);
