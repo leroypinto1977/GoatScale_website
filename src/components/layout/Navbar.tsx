@@ -186,6 +186,21 @@ export default function Navbar() {
       setHovered(null);
     }, 120);
   };
+  // Immediate close — used when a panel option is selected.
+  const closePanel = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenPanel(null);
+    setHovered(null);
+    // Drop focus so `:focus-within` doesn't hold the panel open.
+    (document.activeElement as HTMLElement | null)?.blur?.();
+  };
+
+  /* ── Close panels/menu on route change ──────────────────────── */
+  useEffect(() => {
+    setOpenPanel(null);
+    setHovered(null);
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -255,6 +270,7 @@ export default function Navbar() {
                       {item.panel && (
                         <div
                           className={styles.panelWrap}
+                          data-open={openPanel === item.panel ? 'true' : 'false'}
                           onMouseEnter={() => requestPanel(item.panel ?? null)}
                           onMouseLeave={scheduleClose}
                         >
@@ -262,14 +278,14 @@ export default function Navbar() {
                             <div className={`${styles.panel} ${styles.panelServices}`}>
                               <div className={styles.panelGrid}>
                                 {SERVICES.map((s) => (
-                                  <Link key={s.number} href={`/services/${s.slug}`} className={styles.serviceCard}>
+                                  <Link key={s.number} href={`/services/${s.slug}`} className={styles.serviceCard} onClick={closePanel}>
                                     <span className={styles.serviceNum}>{s.number}</span>
                                     <span className={styles.serviceTitle}>{s.title}</span>
                                     <span className={styles.serviceBlurb}>{s.blurb}</span>
                                   </Link>
                                 ))}
                               </div>
-                              <Link href="/start-a-project" className={styles.panelFooter}>
+                              <Link href="/start-a-project" className={styles.panelFooter} onClick={closePanel}>
                                 <span>Have a project in mind?</span>
                                 <span className={styles.panelFooterCta}>
                                   Start a project <ArrowIcon />
@@ -284,7 +300,7 @@ export default function Navbar() {
                               <ul className={styles.workList}>
                                 {projects.slice(0, 4).map((p) => (
                                   <li key={p.slug}>
-                                    <Link href={`/work/${p.slug}`} className={styles.workRow}>
+                                    <Link href={`/work/${p.slug}`} className={styles.workRow} onClick={closePanel}>
                                       <span className={styles.workTitle}>{p.title}</span>
                                       <span className={styles.workMeta}>
                                         {p.client} · {p.year}
@@ -297,7 +313,7 @@ export default function Navbar() {
                                   </li>
                                 ))}
                               </ul>
-                              <Link href="/work" className={styles.panelFooter}>
+                              <Link href="/work" className={styles.panelFooter} onClick={closePanel}>
                                 <span>Every case study</span>
                                 <span className={styles.panelFooterCta}>
                                   View all work <ArrowIcon />
